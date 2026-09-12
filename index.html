@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Justin Wu | Portfolio</title>
     <meta name="description"
-        content="Justin Wu's portfolio: computational biology, computer science, mathematics, projects, awards, and leadership.">
+        content="Justin Wu's portfolio: Carnegie Mellon AI, computational biology research, GWAS, interactive projects, awards, and leadership.">
     <meta name="theme-color" content="#0b1120">
     <script>document.documentElement.classList.add('js');</script>
     <link rel="icon" type="image/jpeg"
@@ -48,6 +48,7 @@
     <div class="main-container max-w-5xl mx-auto my-5 sm:my-8 p-5 sm:p-8 lg:p-10 rounded-3xl shadow-2xl relative z-10">
         <nav class="site-nav reveal" aria-label="Primary navigation">
             <a href="#about">About</a>
+            <a href="#education">Education</a>
             <a href="#projects">Projects</a>
             <a href="#honors">Honors</a>
             <a href="#contact">Contact</a>
@@ -56,25 +57,25 @@
         <header class="hero text-center mb-16 reveal">
             <img src="https://raw.githubusercontent.com/refleco/refleco.github.io/main/galaxy.jpeg" alt="Galaxy Icon"
                 class="hero-avatar w-32 h-32 sm:w-36 sm:h-36 rounded-full mx-auto mb-6 border-4 border-white dark:border-slate-600 shadow-xl transition-transform duration-300 hover:scale-105">
-            <p class="eyebrow">Computational biology • CS • Mathematics</p>
-            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter"><a href="https://justinwu.me/"
-                    class="gradient-name">Justin Wu</a></h1>
+            <p class="eyebrow">Artificial intelligence • Computational biology • CS</p>
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter"><span
+                    class="gradient-name">Justin Wu</span></h1>
             <p class="text-xl sm:text-2xl text-light-secondary dark:text-dark-secondary mt-4 max-w-3xl mx-auto">
-                <span id="typing-text" data-text="High School Student | Programmer | Swimmer"></span><span
+                <span id="typing-text" data-text="CMU AI | Computational Biology | Programmer"></span><span
                     class="typing-cursor"></span>
             </p>
             <p class="hero-summary text-lg sm:text-xl text-light-secondary dark:text-dark-secondary mt-6 max-w-3xl mx-auto">
-                I build interactive projects, study biology through computation, and bring the same endurance from
-                swimming into research, math, and engineering.
+                Incoming Carnegie Mellon AI student building interactive projects, studying biology through computation,
+                and bringing the same endurance from swimming into research, math, and engineering.
             </p>
             <div class="hero-actions mt-8">
                 <a class="button-primary" href="#projects"><i class="fas fa-layer-group"></i>View projects</a>
-                <a class="button-secondary" href="mailto:wujustin20@outlook.com"><i class="fas fa-envelope"></i>Get in touch</a>
+                <a class="button-secondary" href="mailto:wujustin20@gmail.com"><i class="fas fa-envelope"></i>Get in touch</a>
             </div>
             <div class="highlight-strip" aria-label="Portfolio highlights">
-                <div><strong>USABO</strong><span>Semifinalist</span></div>
-                <div><strong>2x AIME</strong><span>Qualifier</span></div>
-                <div><strong>Top 25</strong><span>Math modeling</span></div>
+                <div><strong>CMU AI</strong><span>B.S. expected 2030</span></div>
+                <div><strong>ISMB 2026</strong><span>Poster</span></div>
+                <div><strong>Nathanson Lab</strong><span>Research</span></div>
             </div>
         </header>
 
@@ -82,10 +83,29 @@
             <section id="about" class="reveal">
                 <p class="section-kicker">About</p>
                 <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Curious where code meets science.</h2>
-                <p class="text-lg sm:text-xl leading-relaxed text-light-secondary dark:text-dark-secondary">I am a dedicated high
-                    school student with a strong passion for computational biology, computer science, and mathematics. I
-                    enjoy applying problem-solving skills to challenging projects and research, especially where
-                    technology can turn complicated scientific questions into clearer, testable systems.</p>
+                <p class="text-lg sm:text-xl leading-relaxed text-light-secondary dark:text-dark-secondary">I am an
+                    incoming Carnegie Mellon Artificial Intelligence student focused on computational biology, GWAS
+                    analysis, and building systems that turn messy scientific questions into clearer, testable results.
+                    Outside research, I ship interactive tools — from 3D race replays to algorithm visualizers — and
+                    still swim for the same grit that shows up in long research problems.</p>
+            </section>
+
+            <section id="education" class="reveal">
+                <p class="section-kicker">School</p>
+                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Education</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card tilt-card p-8">
+                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-university icon mr-3"></i>Carnegie Mellon University</h3>
+                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">B.S. in Artificial
+                            Intelligence</p>
+                        <span class="date-badge">Expected May 2030</span>
+                    </div>
+                    <div class="card tilt-card p-8">
+                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-graduation-cap icon mr-3"></i>Conestoga High School</h3>
+                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Berwyn, PA</p>
+                        <span class="date-badge">June 2026</span>
+                    </div>
+                </div>
             </section>
 
             <section id="skills" class="reveal">
@@ -94,24 +114,28 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="card tilt-card p-8">
                         <h3 class="text-2xl font-bold mb-5 flex items-center"><i
-                                class="fas fa-code icon mr-4 text-3xl"></i>Programming & Tech</h3>
+                                class="fas fa-code icon mr-4 text-3xl"></i>Languages</h3>
                         <ul class="space-y-4 text-lg text-light-secondary dark:text-dark-secondary">
                             <li class="flex items-center"><i class="fab fa-java icon w-6 mr-4"></i> Java</li>
                             <li class="flex items-center"><i class="fab fa-python icon w-6 mr-4"></i> Python</li>
                             <li class="flex items-center"><i class="fas fa-chart-line icon w-6 mr-4"></i> R</li>
+                            <li class="flex items-center"><i class="fab fa-swift icon w-6 mr-4"></i> Swift</li>
                             <li class="flex items-center"><i class="fab fa-html5 icon w-6 mr-4"></i> HTML & CSS</li>
+                            <li class="flex items-center"><i class="fab fa-linux icon w-6 mr-4"></i> Linux</li>
                         </ul>
                     </div>
                     <div class="card tilt-card p-8">
                         <h3 class="text-2xl font-bold mb-5 flex items-center"><i
-                                class="fas fa-flask icon mr-4 text-3xl"></i>Sciences</h3>
+                                class="fas fa-dna icon mr-4 text-3xl"></i>Domains</h3>
                         <ul class="space-y-4 text-lg text-light-secondary dark:text-dark-secondary">
-                            <li class="flex items-center"><i class="fas fa-dna icon w-6 mr-4"></i> Computational
-                                Genetics</li>
-                            <li class="flex items-center"><i class="fas fa-atom icon w-6 mr-4"></i> Chemistry</li>
-                            <li class="flex items-center"><i class="fas fa-leaf icon w-6 mr-4"></i> Biology</li>
-                            <li class="flex items-center"><i class="fas fa-drafting-compass icon w-6 mr-4"></i>
-                                Engineering Design</li>
+                            <li class="flex items-center"><i class="fas fa-flask icon w-6 mr-4"></i> Bioinformatics /
+                                computational biology</li>
+                            <li class="flex items-center"><i class="fas fa-project-diagram icon w-6 mr-4"></i> GWAS
+                                analysis</li>
+                            <li class="flex items-center"><i class="fas fa-calculator icon w-6 mr-4"></i> Statistical
+                                computing</li>
+                            <li class="flex items-center"><i class="fas fa-chart-area icon w-6 mr-4"></i> Data
+                                visualization</li>
                         </ul>
                     </div>
                 </div>
@@ -119,19 +143,28 @@
 
             <section id="experience" class="reveal">
                 <p class="section-kicker">Experience</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Research & Experience</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Research & Publications</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-hands-helping icon mr-3"></i>Volunteer | PENN Care</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Organized community
-                            cleanup and setup for events with the Philadelphia Mayor's Philly Spring Cleanup Initiative.</p>
-                        <span class="date-badge">June 2022 – Present</span>
+                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-microscope icon mr-3"></i>Research Assistant, Nathanson Lab</h3>
+                        <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Perelman School of Medicine,
+                            University of Pennsylvania</p>
+                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Conducted SNP association
+                            testing across thousands of samples in a GWAS meta-analysis linking polygenic risk scores to
+                            cancer relapse in testicular germ cell tumors. Built a bash/Python pipeline to identify
+                            proxy SNPs in linkage disequilibrium with lead GWAS hits for downstream fine-mapping.</p>
+                        <span class="date-badge">June 2025 – August 2026</span>
                     </div>
                     <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-hospital icon mr-3"></i>Volunteer | Penn Medicine Radnor</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Greeted and directed
-                            patients, providing assistance to enhance their hospital experience.</p>
-                        <span class="date-badge">Summer 2023</span>
+                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-file-alt icon mr-3"></i>ISMB 2026 Poster</h3>
+                        <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Wu, J., &amp; Yang, T. —
+                            Enhancing Genetic Ancestry Inference through Topological Data Analysis and Unsupervised
+                            Clustering</p>
+                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Applied persistent homology
+                            to 1000 Genomes Project SNP data, generating persistence barcodes to capture population
+                            structure beyond PCA, then paired topological features with unsupervised clustering to
+                            improve ancestry inference.</p>
+                        <span class="date-badge">July 2026</span>
                     </div>
                 </div>
             </section>
@@ -193,14 +226,13 @@
                 <div class="flex flex-wrap justify-center gap-4">
                     <span class="tag font-semibold px-5 py-2 rounded-full text-md">USA Biology Olympiad (USABO)
                         Semifinalist</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">FBLA National Competition - 10th
-                        Place</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">MathWorks Math Modeling Challenge -
-                        Top 25</span>
-
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">AIME Qualifier (2x)</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">PA Science Olympiad - 3rd & 5th
-                        Place</span>
+                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">FBLA PA State Champion, Computer
+                        Problem Solving (2025)</span>
+                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">MathWorks M3 Challenge Honorable
+                        Mention — Top 25 of 800+ (2025)</span>
+                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">AIME Qualifier (2023, 2025)</span>
+                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">Pennsylvania Seal of Biliteracy,
+                        Spanish (2026)</span>
                 </div>
             </section>
 
@@ -210,14 +242,11 @@
                 <div class="card tilt-card p-8">
                     <ul
                         class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-lg text-light-secondary dark:text-dark-secondary">
-                        <li class="leadership-item flex items-center"><i class="fas fa-crown icon w-6 mr-4"></i>President, Biology Club</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-pen icon w-6 mr-4"></i>Secretary, Math Modeling Club</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-laptop-code icon w-6 mr-4"></i>Officer, Computer Science Club</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-users icon w-6 mr-4"></i>Co-Captain, JV Academic Team</li>
+                        <li class="leadership-item flex items-center"><i class="fas fa-crown icon w-6 mr-4"></i>President, Math Modeling Club</li>
+                        <li class="leadership-item flex items-center"><i class="fas fa-laptop-code icon w-6 mr-4"></i>Vice President, Computer Science Club</li>
+                        <li class="leadership-item flex items-center"><i class="fas fa-users icon w-6 mr-4"></i>Team Captain, Lehigh Valley ARML</li>
+                        <li class="leadership-item flex items-center"><i class="fas fa-landmark icon w-6 mr-4"></i>Student Advisory Council, Sen. Carolyn Comitta</li>
                         <li class="leadership-item flex items-center"><i class="fas fa-swimmer icon w-6 mr-4"></i>Varsity Swim Team</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-microscope icon w-6 mr-4"></i>Science Olympiad Team</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-music icon w-6 mr-4"></i>Section Leader, Concert Band</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-building icon w-6 mr-4"></i>Student Executive Council</li>
                     </ul>
                 </div>
             </section>
@@ -227,7 +256,7 @@
             <div class="section-divider mb-10"></div>
             <p class="text-sm font-medium text-light-secondary dark:text-dark-secondary mb-6 tracking-wide uppercase">Let's Connect</p>
             <div id="contact" class="flex justify-center items-center space-x-6 mb-8">
-                <a href="mailto:wujustin20@outlook.com"
+                <a href="mailto:wujustin20@gmail.com"
                     class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
                     aria-label="Email"><i class="fas fa-envelope"></i></a>
                 <a href="https://github.com/refleco" target="_blank"
