@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Justin Wu | Portfolio</title>
     <meta name="description"
-        content="Justin Wu's portfolio: Carnegie Mellon AI, computational biology research, GWAS, interactive projects, awards, and leadership.">
+        content="Justin Wu — Carnegie Mellon AI student. Computational biology research, GWAS, Apex 3D F1 replay, ISMB 2026 poster, and selected projects.">
     <meta name="theme-color" content="#0b1120">
     <script>document.documentElement.classList.add('js');</script>
-    <link rel="icon" type="image/jpeg"
-        href="https://raw.githubusercontent.com/justinwu80/justinwu80.github.io/main/galaxy.jpeg">
+    <link rel="icon" type="image/jpeg" href="galaxy.jpeg">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -48,14 +47,15 @@
     <div class="main-container max-w-5xl mx-auto my-5 sm:my-8 p-5 sm:p-8 lg:p-10 rounded-3xl shadow-2xl relative z-10">
         <nav class="site-nav reveal" aria-label="Primary navigation">
             <a href="#about">About</a>
-            <a href="#education">Education</a>
+            <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
             <a href="#honors">Honors</a>
             <a href="#contact">Contact</a>
         </nav>
 
         <header class="hero text-center mb-16 reveal">
-            <img src="https://raw.githubusercontent.com/justinwu80/justinwu80.github.io/main/galaxy.jpeg" alt="Galaxy Icon"
+            <img src="galaxy.jpeg" alt="Galaxy Icon"
                 class="hero-avatar w-32 h-32 sm:w-36 sm:h-36 rounded-full mx-auto mb-6 border-4 border-white dark:border-slate-600 shadow-xl transition-transform duration-300 hover:scale-105">
             <p class="eyebrow">Artificial intelligence • Computational biology • CS</p>
             <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter"><span
@@ -65,15 +65,17 @@
                     class="typing-cursor"></span>
             </p>
             <p class="hero-summary text-lg sm:text-xl text-light-secondary dark:text-dark-secondary mt-6 max-w-3xl mx-auto">
-                Incoming Carnegie Mellon AI student building interactive projects, studying biology through computation,
-                and bringing the same endurance from swimming into research, math, and engineering.
+                Carnegie Mellon Artificial Intelligence student focused on computational biology, GWAS analysis, and
+                interactive systems — from ancestry inference research to a 3D Formula 1 replay engine.
             </p>
             <div class="hero-actions mt-8">
                 <a class="button-primary" href="#projects"><i class="fas fa-layer-group"></i>View projects</a>
-                <a class="button-secondary" href="mailto:wujustin20@gmail.com"><i class="fas fa-envelope"></i>Get in touch</a>
+                <a class="button-secondary" href="JustinWuResume.pdf" download><i class="fas fa-file-arrow-down"></i>Download resume</a>
+                <a class="button-secondary" href="mailto:jzwu@andrew.cmu.edu"><i class="fas fa-envelope"></i>Get in touch</a>
             </div>
             <div class="highlight-strip" aria-label="Portfolio highlights">
-                <div><strong>CMU AI</strong><span>B.S. expected 2029</span></div>
+                <div><strong>CMU AI</strong><span>B.S. expected May 2029</span></div>
+                <div><strong>GPA 4.0</strong><span>4.0 / 4.0</span></div>
                 <div><strong>ISMB 2026</strong><span>Poster</span></div>
                 <div><strong>Nathanson Lab</strong><span>Research</span></div>
             </div>
@@ -83,88 +85,83 @@
             <section id="about" class="reveal">
                 <p class="section-kicker">About</p>
                 <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Curious where code meets science.</h2>
-                <p class="text-lg sm:text-xl leading-relaxed text-light-secondary dark:text-dark-secondary">I am an
-                    incoming Carnegie Mellon Artificial Intelligence student focused on computational biology, GWAS
-                    analysis, and building systems that turn messy scientific questions into clearer, testable results.
-                    Outside research, I ship interactive tools — from 3D race replays to algorithm visualizers — and
-                    still swim for the same grit that shows up in long research problems.</p>
+                <p class="text-lg sm:text-xl leading-relaxed text-light-secondary dark:text-dark-secondary">I am a
+                    Carnegie Mellon Artificial Intelligence student focused on computational biology, GWAS analysis,
+                    and building systems that turn messy scientific questions into clearer, testable results.
+                    Outside research, I ship interactive tools — from a 3D race replay engine to algorithm visualizers —
+                    and still swim for the same grit that shows up in long research problems.</p>
             </section>
 
             <section id="education" class="reveal">
                 <p class="section-kicker">School</p>
                 <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Education</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-university icon mr-3"></i>Carnegie Mellon University</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">B.S. in Artificial
-                            Intelligence</p>
-                        <span class="date-badge">Expected May 2030</span>
-                    </div>
-                    <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-graduation-cap icon mr-3"></i>Conestoga High School</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Berwyn, PA</p>
-                        <span class="date-badge">June 2026</span>
-                    </div>
-                </div>
-            </section>
-
-            <section id="skills" class="reveal">
-                <p class="section-kicker">Toolkit</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Skills</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="card tilt-card p-8">
-                        <h3 class="text-2xl font-bold mb-5 flex items-center"><i
-                                class="fas fa-code icon mr-4 text-3xl"></i>Languages</h3>
-                        <ul class="space-y-4 text-lg text-light-secondary dark:text-dark-secondary">
-                            <li class="flex items-center"><i class="fab fa-java icon w-6 mr-4"></i> Java</li>
-                            <li class="flex items-center"><i class="fab fa-python icon w-6 mr-4"></i> Python</li>
-                            <li class="flex items-center"><i class="fas fa-chart-line icon w-6 mr-4"></i> R</li>
-                            <li class="flex items-center"><i class="fab fa-swift icon w-6 mr-4"></i> Swift</li>
-                            <li class="flex items-center"><i class="fab fa-html5 icon w-6 mr-4"></i> HTML & CSS</li>
-                            <li class="flex items-center"><i class="fab fa-linux icon w-6 mr-4"></i> Linux</li>
-                        </ul>
-                    </div>
-                    <div class="card tilt-card p-8">
-                        <h3 class="text-2xl font-bold mb-5 flex items-center"><i
-                                class="fas fa-dna icon mr-4 text-3xl"></i>Domains</h3>
-                        <ul class="space-y-4 text-lg text-light-secondary dark:text-dark-secondary">
-                            <li class="flex items-center"><i class="fas fa-flask icon w-6 mr-4"></i> Bioinformatics /
-                                computational biology</li>
-                            <li class="flex items-center"><i class="fas fa-project-diagram icon w-6 mr-4"></i> GWAS
-                                analysis</li>
-                            <li class="flex items-center"><i class="fas fa-calculator icon w-6 mr-4"></i> Statistical
-                                computing</li>
-                            <li class="flex items-center"><i class="fas fa-chart-area icon w-6 mr-4"></i> Data
-                                visualization</li>
-                        </ul>
+                <div class="card tilt-card p-8">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                        <div>
+                            <h3 class="text-xl font-bold flex items-center"><i
+                                    class="fas fa-university icon mr-3"></i>Carnegie Mellon University</h3>
+                            <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Bachelor of Science in
+                                Artificial Intelligence</p>
+                            <p class="text-md text-light-secondary dark:text-dark-secondary mt-1">Pittsburgh, PA</p>
+                        </div>
+                        <div class="sm:text-right">
+                            <span class="date-badge">August 2026 – May 2029</span>
+                            <p class="text-md font-semibold mt-3 text-light-primary dark:text-dark-primary">GPA: 4.0/4.0</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section id="experience" class="reveal">
                 <p class="section-kicker">Experience</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Research & Publications</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Research &amp; Publications</h2>
+                <div class="space-y-8">
                     <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-microscope icon mr-3"></i>Research Assistant, Nathanson Lab</h3>
-                        <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Perelman School of Medicine,
-                            University of Pennsylvania</p>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Conducted SNP association
-                            testing across thousands of samples in a GWAS meta-analysis linking polygenic risk scores to
-                            cancer relapse in testicular germ cell tumors. Built a bash/Python pipeline to identify
-                            proxy SNPs in linkage disequilibrium with lead GWAS hits for downstream fine-mapping.</p>
-                        <span class="date-badge">June 2025 – August 2026</span>
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                            <div>
+                                <h3 class="text-xl font-bold flex items-center"><i
+                                        class="fas fa-microscope icon mr-3"></i>Research Assistant</h3>
+                                <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Nathanson Lab,
+                                    Perelman School of Medicine, University of Pennsylvania</p>
+                                <p class="text-sm text-light-secondary dark:text-dark-secondary">Philadelphia, PA</p>
+                            </div>
+                            <span class="date-badge shrink-0">June 2024 – August 2026</span>
+                        </div>
+                        <ul class="detail-list mt-4 text-md text-light-secondary dark:text-dark-secondary">
+                            <li>Conducted association testing on approximately 500K single-nucleotide polymorphisms
+                                (SNPs) across thousands of samples in a genome-wide association study (GWAS)
+                                meta-analysis of polygenic risk scores and cancer relapse in testicular germ cell
+                                tumors, producing Manhattan and QQ plots to assess genome-wide significance</li>
+                            <li>Engineered a Bash/Python pipeline to identify proxy SNPs in linkage disequilibrium
+                                (r² ≥ 0.8) with 100+ lead GWAS hits across 500 kb windows, using LocusZoom for
+                                regional LD visualization to enable downstream fine-mapping</li>
+                            <li>Harmonized SNP naming and genome builds across the Penn Medicine BioBank (PMBB),
+                                Gencove, and Discovery cohorts, correcting an outdated marker list and tripling the
+                                size of the shared replication set</li>
+                        </ul>
                     </div>
+
                     <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold flex items-center"><i class="fas fa-file-alt icon mr-3"></i>ISMB 2026 Poster</h3>
-                        <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Wu, J., &amp; Yang, T. —
-                            Enhancing Genetic Ancestry Inference through Topological Data Analysis and Unsupervised
-                            Clustering</p>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Applied persistent homology
-                            to 1000 Genomes Project SNP data, generating persistence barcodes to capture population
-                            structure beyond PCA, then paired topological features with unsupervised clustering to
-                            improve ancestry inference.</p>
-                        <span class="date-badge">July 2026</span>
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                            <div>
+                                <h3 class="text-xl font-bold flex items-center"><i
+                                        class="fas fa-file-alt icon mr-3"></i>Enhancing Genetic Ancestry Inference
+                                    through TDA and Clustering</h3>
+                                <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Wu, J., &amp;
+                                    Yang, T. — Poster, Intelligent Systems for Molecular Biology (ISMB) Conference</p>
+                            </div>
+                            <span class="date-badge shrink-0">July 2026</span>
+                        </div>
+                        <ul class="detail-list mt-4 text-md text-light-secondary dark:text-dark-secondary">
+                            <li>Paired topological features with unsupervised clustering to improve ancestry inference
+                                in admixed populations, reaching 96% accuracy on the admixed American (AMR)
+                                superpopulation versus 73% for PCA with k-means</li>
+                            <li>Applied persistent homology to 1000 Genomes Project SNP data from 2,504 individuals
+                                across 26 populations, generating persistence barcodes to capture population structure
+                                beyond what linear methods such as PCA reveal</li>
+                            <li>Maintained overall ancestry classification accuracy of 99.08% using topological data
+                                analysis (TDA) with Ward linkage clustering, on par with PCA with k-means (99%)</li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -172,18 +169,34 @@
             <section id="projects" class="reveal">
                 <p class="section-kicker">Selected work</p>
                 <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Projects</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <a href="f1/" class="card tilt-card project-card block p-6 group">
-                        <span class="project-icon">🏎️</span>
-                        <h3
-                            class="text-xl font-bold group-hover:text-accent-color dark:group-hover:text-accent-hover transition-colors">
-                            3D F1 Replay</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">An interactive 3D race
-                            replay engine visualizing Formula 1 races with real FastF1 telemetry.</p>
-                        <div class="project-tech">
-                            <span>Three.js</span><span>Vite</span><span>FastF1</span><span>Gzip API</span>
+
+                <a href="f1/" class="card tilt-card project-card featured-project block p-8 group mb-8">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                        <div>
+                            <span class="project-icon">🏎️</span>
+                            <h3
+                                class="text-2xl font-bold group-hover:text-accent-color dark:group-hover:text-accent-hover transition-colors">
+                                Apex</h3>
+                            <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">3D F1 Race Replay
+                                Engine | Three.js, Vite, FastF1</p>
                         </div>
-                    </a>
+                        <span class="date-badge shrink-0">June 2025 – June 2026</span>
+                    </div>
+                    <ul class="detail-list mt-4 text-md text-light-secondary dark:text-dark-secondary">
+                        <li>Built an interactive 3D replay engine visualizing ∼140 Formula 1 races since 2020 from real
+                            FastF1 telemetry, rendering ∼250K data points per race at a sustained 60 FPS</li>
+                        <li>Applied Kalman filtering to smooth noisy telemetry, cutting car jitter by 50%, and
+                            physics-informed splines to interpolate car paths without overlap between cars</li>
+                        <li>Implemented multiple camera modes (free orbit, follow car, TV chase/action cams) and
+                            variable-speed playback (0.5x–64x) synchronized with telemetry</li>
+                    </ul>
+                    <div class="project-tech mt-4">
+                        <span>Three.js</span><span>Vite</span><span>FastF1</span><span>Gzip API</span>
+                    </div>
+                </a>
+
+                <p class="subsection-label">Also on this site</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <a href="btd6/" class="card tilt-card project-card block p-6 group" id="btd6-link">
                         <span class="project-icon">🎈</span>
                         <h3
@@ -220,17 +233,70 @@
                 </div>
             </section>
 
+            <section id="skills" class="reveal">
+                <p class="section-kicker">Toolkit</p>
+                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Technical Skills</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card tilt-card p-8">
+                        <h3 class="text-xl font-bold mb-5 flex items-center"><i
+                                class="fas fa-code icon mr-3 text-2xl"></i>Languages</h3>
+                        <ul class="space-y-3 text-md text-light-secondary dark:text-dark-secondary">
+                            <li class="flex items-center"><i class="fab fa-java icon w-6 mr-3"></i>Java</li>
+                            <li class="flex items-center"><i class="fab fa-python icon w-6 mr-3"></i>Python</li>
+                            <li class="flex items-center"><i class="fas fa-microchip icon w-6 mr-3"></i>C / C++</li>
+                            <li class="flex items-center"><i class="fab fa-js icon w-6 mr-3"></i>JavaScript</li>
+                            <li class="flex items-center"><i class="fab fa-html5 icon w-6 mr-3"></i>HTML / CSS</li>
+                            <li class="flex items-center"><i class="fas fa-chart-line icon w-6 mr-3"></i>R</li>
+                            <li class="flex items-center"><i class="fab fa-swift icon w-6 mr-3"></i>Swift</li>
+                        </ul>
+                    </div>
+                    <div class="card tilt-card p-8">
+                        <h3 class="text-xl font-bold mb-5 flex items-center"><i
+                                class="fas fa-toolbox icon mr-3 text-2xl"></i>Developer Tools</h3>
+                        <ul class="space-y-3 text-md text-light-secondary dark:text-dark-secondary">
+                            <li class="flex items-center"><i class="fab fa-git-alt icon w-6 mr-3"></i>Git</li>
+                            <li class="flex items-center"><i class="fab fa-docker icon w-6 mr-3"></i>Docker</li>
+                            <li class="flex items-center"><i class="fas fa-code icon w-6 mr-3"></i>VS Code</li>
+                            <li class="flex items-center"><i class="fas fa-laptop-code icon w-6 mr-3"></i>Visual Studio</li>
+                            <li class="flex items-center"><i class="fas fa-terminal icon w-6 mr-3"></i>PyCharm / Eclipse</li>
+                            <li class="flex items-center"><i class="fas fa-dollar-sign icon w-6 mr-3"></i>Bash</li>
+                            <li class="flex items-center"><i class="fab fa-npm icon w-6 mr-3"></i>npm</li>
+                        </ul>
+                    </div>
+                    <div class="card tilt-card p-8">
+                        <h3 class="text-xl font-bold mb-5 flex items-center"><i
+                                class="fas fa-flask icon mr-3 text-2xl"></i>Libraries</h3>
+                        <ul class="space-y-3 text-md text-light-secondary dark:text-dark-secondary">
+                            <li>pandas, NumPy, SciPy</li>
+                            <li>Matplotlib, seaborn</li>
+                            <li>scikit-learn, statsmodels</li>
+                            <li>Biopython</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card tilt-card p-6 mt-8">
+                    <h3 class="text-lg font-bold mb-3 flex items-center"><i
+                            class="fas fa-dna icon mr-3"></i>Domains</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="tag font-semibold px-4 py-2 text-sm">Bioinformatics / computational biology</span>
+                        <span class="tag font-semibold px-4 py-2 text-sm">GWAS analysis</span>
+                        <span class="tag font-semibold px-4 py-2 text-sm">Statistical computing</span>
+                        <span class="tag font-semibold px-4 py-2 text-sm">Data visualization</span>
+                    </div>
+                </div>
+            </section>
+
             <section id="honors" class="reveal">
                 <p class="section-kicker">Recognition</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Honors & Awards</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Honors &amp; Awards</h2>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">USA Biology Olympiad (USABO)
-                        Semifinalist</span>
+                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">2x AIME Qualifier (2023, 2025)</span>
+                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">USA Biolympiad, Recognition of
+                        Academic Excellence — top 50 of 10000+ (2025)</span>
+                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">MathWorks M3 Challenge Honorable
+                        Mention — top 25 of 800+ papers (2025)</span>
                     <span class="tag font-semibold px-5 py-2 rounded-full text-md">FBLA PA State Champion, Computer
                         Problem Solving (2025)</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">MathWorks M3 Challenge Honorable
-                        Mention — Top 25 of 800+ (2025)</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">AIME Qualifier (2023, 2025)</span>
                     <span class="tag font-semibold px-5 py-2 rounded-full text-md">Pennsylvania Seal of Biliteracy,
                         Spanish (2026)</span>
                 </div>
@@ -238,7 +304,7 @@
 
             <section id="leadership" class="reveal">
                 <p class="section-kicker">Beyond class</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Leadership & Activities</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Leadership &amp; Activities</h2>
                 <div class="card tilt-card p-8">
                     <ul
                         class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-lg text-light-secondary dark:text-dark-secondary">
@@ -256,15 +322,18 @@
             <div class="section-divider mb-10"></div>
             <p class="text-sm font-medium text-light-secondary dark:text-dark-secondary mb-6 tracking-wide uppercase">Let's Connect</p>
             <div id="contact" class="flex justify-center items-center space-x-6 mb-8">
-                <a href="mailto:wujustin20@gmail.com"
+                <a href="mailto:jzwu@andrew.cmu.edu"
                     class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
                     aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://github.com/justinwu80" target="_blank"
+                <a href="https://github.com/justinwu80" target="_blank" rel="noopener noreferrer"
                     class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
                     aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/justinwu80/" target="_blank"
+                <a href="https://www.linkedin.com/in/justinwu80/" target="_blank" rel="noopener noreferrer"
                     class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
                     aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="JustinWuResume.pdf" download
+                    class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
+                    aria-label="Download resume"><i class="fas fa-file-arrow-down"></i></a>
             </div>
             <p class="text-sm text-light-secondary dark:text-dark-secondary opacity-60">&copy; 2026 Justin Wu</p>
         </footer>
