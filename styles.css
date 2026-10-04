@@ -261,9 +261,9 @@ body {
 
 .highlight-strip {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.75rem;
-    max-width: 46rem;
+    max-width: 52rem;
     margin: 2.25rem auto 0;
 }
 
@@ -374,6 +374,53 @@ body {
     border: 1px solid rgba(34, 211, 238, 0.2);
     font-weight: 500;
     letter-spacing: 0.025em;
+}
+
+.featured-project {
+    min-height: auto;
+}
+
+.featured-project .project-icon {
+    margin-bottom: 0.35rem;
+}
+
+.subsection-label {
+    color: var(--text-light-secondary);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.dark .subsection-label {
+    color: var(--text-dark-secondary);
+}
+
+.detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.detail-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    line-height: 1.55;
+    text-wrap: pretty;
+}
+
+.detail-list li::before {
+    content: '';
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--accent-color);
 }
 
 /* Typography */
@@ -515,7 +562,7 @@ h2 {
 
     .site-nav {
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-start;
         overflow-x: auto;
         margin-bottom: 2.5rem;
     }
@@ -527,7 +574,7 @@ h2 {
     }
 
     .highlight-strip {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
     .hero-actions a {
@@ -553,6 +600,12 @@ h2 {
 
     .card {
         padding: 1.25rem !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .highlight-strip {
+        grid-template-columns: 1fr;
     }
 }
 
