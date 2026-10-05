@@ -1,162 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game of Life Demo | Justin Wu</title>
     <link rel="icon" type="image/jpeg" href="../galaxy.jpeg">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'accent-color': 'var(--accent-color)',
-                        'accent-hover': 'var(--accent-hover)',
-                        'light-primary': 'var(--text-light-primary)',
-                        'dark-primary': 'var(--text-dark-primary)',
-                        'light-secondary': 'var(--text-light-secondary)',
-                        'dark-secondary': 'var(--text-dark-secondary)',
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../project.css">
     <style>
-        .game-container {
-            background-color: var(--container-light);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .dark .game-container {
-            background-color: var(--container-dark);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .canvas-wrap {
+            width: 100%;
+            min-height: min(62vh, 560px);
+            height: min(62vh, 560px);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background:
+                linear-gradient(180deg, #f8fafc 0%, #eef3f8 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+            justify-content: stretch;
         }
 
         canvas#game-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
             cursor: crosshair;
             touch-action: none;
+        }
+
+        .btn-row {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .btn-row .button {
+            width: 100%;
+        }
+
+        .pattern-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.5rem;
+            align-items: end;
+        }
+
+        .pattern-row select {
+            width: 100%;
+            min-height: 2.4rem;
+            padding: 0.45rem 0.65rem;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+        }
+
+        .rules-list {
+            margin: 0;
+            padding-left: 1.1rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .rules-list li {
+            margin-bottom: 0.4rem;
+        }
+
+        .rules-list strong {
+            color: var(--accent);
+        }
+
+        .hint {
+            margin: 0.85rem 0 0;
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        @media (max-width: 860px) {
+            .canvas-wrap {
+                min-height: 48vh;
+                height: 48vh;
+            }
         }
     </style>
 </head>
 
-<body class="transition-colors duration-300">
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="loader-content"></div>
-    </div>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <a class="brand" href="../">Justin Wu</a>
+            <nav class="nav-links">
+                <a href="../">Back to portfolio</a>
+                <a href="https://github.com/justinwu80/Game-of-Life-Python" target="_blank" rel="noopener noreferrer">View source</a>
+            </nav>
+        </header>
 
-    <!-- Background Canvas -->
-    <canvas id="starfield"></canvas>
+        <section class="demo-hero">
+            <p class="eyebrow">Cellular automaton</p>
+            <h1>Conway's Game of Life</h1>
+            <p>Draw cells, load classic patterns, and watch generations evolve under Conway's four rules.</p>
+        </section>
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 relative z-10 h-screen flex flex-col">
-        <div class="game-container shadow-2xl rounded-3xl p-6 flex-1 flex flex-col reveal">
-            <header class="flex justify-between items-center mb-6 flex-wrap gap-4">
-                <div class="flex items-center gap-4">
-                    <a href="../"
-                        class="text-accent-color hover:text-accent-hover font-bold transition-colors text-lg"><i
-                            class="fas fa-arrow-left mr-2"></i>Back</a>
-                    <h1 class="text-3xl md:text-4xl font-black tracking-tighter">Conway's Game of Life</h1>
+        <div class="layout-split">
+            <div class="panel" style="padding: 0.75rem;">
+                <div class="canvas-wrap">
+                    <canvas id="game-canvas" aria-label="Game of Life grid"></canvas>
                 </div>
-                <div class="flex gap-3">
-                    <a href="https://github.com/justinwu80/Game-of-Life-Python" target="_blank" rel="noopener noreferrer"
-                        class="px-4 py-2 rounded-xl bg-gray-300 text-gray-900 dark:bg-slate-700 dark:text-white hover:bg-accent-color hover:text-white dark:hover:bg-accent-color transition-colors font-bold text-sm flex items-center gap-2">
-                        <i class="fab fa-github"></i> View Source
-                    </a>
-                </div>
-            </header>
-
-            <div class="flex-1 flex flex-col lg:flex-row gap-6 overflow-hidden">
-                <div
-                    class="flex-1 bg-black/20 rounded-xl overflow-hidden relative border border-theme shadow-inner flex justify-center items-center">
-                    <canvas id="game-canvas"></canvas>
-                </div>
-
-                <aside class="w-full lg:w-64 flex flex-col gap-4">
-                    <div class="p-4 rounded-xl bg-card border border-theme card">
-                        <h2 class="text-xl font-bold mb-4 border-b-0">Controls</h2>
-                        <div class="flex flex-col gap-3">
-                            <button id="btn-play"
-                                class="w-full py-3 rounded-lg bg-[#22d3ee] text-gray-900 font-bold hover:bg-accent-hover transition-colors flex items-center justify-center gap-2 shadow-md">
-                                <i class="fas fa-play"></i> Play
-                            </button>
-                            <button id="btn-clear"
-                                class="w-full py-2 rounded-lg bg-red-500 text-white font-bold hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
-                                <i class="fas fa-trash"></i> Clear
-                            </button>
-                            <button id="btn-random"
-                                class="w-full py-2 rounded-lg bg-blue-500 text-white font-bold hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
-                                <i class="fas fa-dice"></i> Randomize
-                            </button>
-                            <div class="flex gap-2">
-                                <select id="pattern-select"
-                                    class="flex-1 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-accent-color">
-                                    <option value="glider">Glider</option>
-                                    <option value="gosper">Gosper Glider Gun</option>
-                                    <option value="pulsar">Pulsar</option>
-                                    <option value="spaceship">Spaceship</option>
-                                </select>
-                                <button id="btn-add-pattern"
-                                    class="px-3 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-card border border-theme card">
-                        <h2 class="text-xl font-bold mb-4 border-b-0">Settings</h2>
-                        <div class="space-y-4">
-                            <div>
-                                <label
-                                    class="block text-sm font-bold text-light-secondary dark:text-dark-secondary mb-1">Speed</label>
-                                <input type="range" id="speed-slider" min="1" max="60" value="30"
-                                    class="w-full accent-accent-color">
-                            </div>
-                            <div>
-                                <p class="text-sm text-light-secondary dark:text-dark-secondary">
-                                    <span class="font-bold">Generation:</span> <span id="gen-count">0</span>
-                                </p>
-                                <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">
-                                    <span class="font-bold">Population:</span> <span id="pop-count">0</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-card border border-theme flex-1 overflow-y-auto card">
-                        <h2 class="text-xl font-bold mb-2 border-b-0">Rules</h2>
-                        <ul class="text-sm text-light-secondary dark:text-dark-secondary list-disc pl-4 space-y-1">
-                            <li><span class="text-accent-color font-bold">Underpopulation:</span> Live cell with < 2
-                                    neighbors dies.</li>
-                            <li><span class="text-accent-color font-bold">Survival:</span> Live cell with 2 or 3
-                                neighbors lives.</li>
-                            <li><span class="text-accent-color font-bold">Overpopulation:</span> Live cell with > 3
-                                neighbors dies.</li>
-                            <li><span class="text-accent-color font-bold">Reproduction:</span> Dead cell with 3
-                                neighbors becomes alive.</li>
-                        </ul>
-                        <p class="text-xs mt-4 italic opacity-70">Click or drag on the grid to toggle cells!</p>
-                    </div>
-                </aside>
             </div>
+
+            <aside class="stack">
+                <div class="panel">
+                    <h2>Controls</h2>
+                    <div class="btn-row">
+                        <button type="button" id="btn-play" class="button">Play</button>
+                        <button type="button" id="btn-clear" class="button button-danger">Clear</button>
+                        <button type="button" id="btn-random" class="button button-ghost">Randomize</button>
+                    </div>
+                    <div class="field" style="margin-top: 0.9rem; margin-bottom: 0;">
+                        <label for="pattern-select">Add pattern</label>
+                        <div class="pattern-row">
+                            <select id="pattern-select">
+                                <option value="glider">Glider</option>
+                                <option value="gosper">Gosper Glider Gun</option>
+                                <option value="pulsar">Pulsar</option>
+                                <option value="spaceship">Spaceship</option>
+                            </select>
+                            <button type="button" id="btn-add-pattern" class="button button-ghost" aria-label="Add selected pattern">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Settings</h2>
+                    <div class="field">
+                        <label for="speed-slider">Speed</label>
+                        <input type="range" id="speed-slider" min="1" max="60" value="30">
+                    </div>
+                    <div class="stat-row">
+                        <span>Generation</span>
+                        <strong id="gen-count">0</strong>
+                    </div>
+                    <div class="stat-row" style="margin-top: 0.45rem;">
+                        <span>Population</span>
+                        <strong id="pop-count">0</strong>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Rules</h2>
+                    <ul class="rules-list">
+                        <li><strong>Underpopulation:</strong> live cell with fewer than 2 neighbors dies.</li>
+                        <li><strong>Survival:</strong> live cell with 2 or 3 neighbors lives.</li>
+                        <li><strong>Overpopulation:</strong> live cell with more than 3 neighbors dies.</li>
+                        <li><strong>Reproduction:</strong> dead cell with exactly 3 neighbors becomes alive.</li>
+                    </ul>
+                    <p class="hint">Click or drag on the grid to toggle cells.</p>
+                </div>
+            </aside>
         </div>
     </div>
 
-    <button id="theme-toggle"
-        class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-card shadow-lg flex items-center justify-center text-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color border border-theme transition-transform duration-300 hover:scale-110 z-50">
-        <i id="theme-icon-light" class="fas fa-sun text-yellow-500"></i>
-        <i id="theme-icon-dark" class="fas fa-moon text-blue-300 hidden"></i>
-    </button>
-
-    <script src="../script.js"></script>
     <script>
         const canvas = document.getElementById('game-canvas');
         const ctx = canvas.getContext('2d');
@@ -169,27 +178,56 @@
         const genCountEl = document.getElementById('gen-count');
         const popCountEl = document.getElementById('pop-count');
 
+        const CELL_COLOR = '#1f4f78';
         let cellSize = 10;
-        let cols, rows;
+        let cols = 0;
+        let rows = 0;
         let grid = [];
         let isPlaying = false;
         let animationId;
         let generation = 0;
         let lastFrameTime = 0;
         let fps = 30;
+        let paintMode = null; // 0 erase, 1 paint — set on pointer down
+
+        function createEmptyGrid(c, r) {
+            return new Array(c).fill(null).map(() => new Array(r).fill(0));
+        }
 
         function resizeCanvas() {
             const parent = canvas.parentElement;
-            canvas.width = parent.clientWidth;
-            canvas.height = parent.clientHeight;
-            cols = Math.floor(canvas.width / cellSize);
-            rows = Math.floor(canvas.height / cellSize);
-            resetGrid();
+            const width = Math.max(1, parent.clientWidth);
+            const height = Math.max(1, parent.clientHeight);
+            canvas.width = width;
+            canvas.height = height;
+
+            const newCols = Math.max(1, Math.floor(width / cellSize));
+            const newRows = Math.max(1, Math.floor(height / cellSize));
+
+            if (!grid.length) {
+                cols = newCols;
+                rows = newRows;
+                grid = createEmptyGrid(cols, rows);
+            } else {
+                const next = createEmptyGrid(newCols, newRows);
+                const copyCols = Math.min(cols, newCols);
+                const copyRows = Math.min(rows, newRows);
+                for (let i = 0; i < copyCols; i++) {
+                    for (let j = 0; j < copyRows; j++) {
+                        next[i][j] = grid[i][j];
+                    }
+                }
+                grid = next;
+                cols = newCols;
+                rows = newRows;
+            }
+
             draw();
+            updateStats();
         }
 
         function resetGrid() {
-            grid = new Array(cols).fill(null).map(() => new Array(rows).fill(0));
+            grid = createEmptyGrid(cols, rows);
             generation = 0;
             updateStats();
         }
@@ -235,7 +273,7 @@
 
         function addPattern(name) {
             const pattern = patterns[name];
-            if (!pattern) return;
+            if (!pattern || !cols || !rows) return;
 
             const offsetX = Math.floor(cols / 2) - 10;
             const offsetY = Math.floor(rows / 2) - 10;
@@ -251,7 +289,7 @@
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#22d3ee';
+            ctx.fillStyle = CELL_COLOR;
 
             let population = 0;
             for (let i = 0; i < cols; i++) {
@@ -262,17 +300,17 @@
                     }
                 }
             }
-            popCountEl.textContent = population;
+            popCountEl.textContent = String(population);
         }
 
         function update() {
-            let nextGrid = grid.map(arr => [...arr]);
+            const nextGrid = grid.map(arr => [...arr]);
             let hasChanges = false;
 
             for (let i = 0; i < cols; i++) {
                 for (let j = 0; j < rows; j++) {
-                    let neighbors = countNeighbors(grid, i, j);
-                    let state = grid[i][j];
+                    const neighbors = countNeighbors(grid, i, j);
+                    const state = grid[i][j];
 
                     if (state === 0 && neighbors === 3) {
                         nextGrid[i][j] = 1;
@@ -291,23 +329,21 @@
             }
         }
 
-        function countNeighbors(grid, x, y) {
+        function countNeighbors(g, x, y) {
             let sum = 0;
             for (let i = -1; i < 2; i++) {
                 for (let j = -1; j < 2; j++) {
-                    let col = (x + i + cols) % cols;
-                    let row = (y + j + rows) % rows;
-                    sum += grid[col][row];
+                    const col = (x + i + cols) % cols;
+                    const row = (y + j + rows) % rows;
+                    sum += g[col][row];
                 }
             }
-            sum -= grid[x][y];
+            sum -= g[x][y];
             return sum;
         }
 
         function updateStats() {
-            genCountEl.textContent = generation;
-            // Force population update here as well to be safe, though draw() handles it too
-            // This ensures if we call updateStats() outside of the loop, it still shows something reasonable if grid exists
+            genCountEl.textContent = String(generation);
             if (grid && grid.length > 0) {
                 let population = 0;
                 for (let i = 0; i < cols; i++) {
@@ -315,8 +351,13 @@
                         if (grid[i][j] === 1) population++;
                     }
                 }
-                popCountEl.textContent = population;
+                popCountEl.textContent = String(population);
             }
+        }
+
+        function setPlayButton(playing) {
+            btnPlay.textContent = playing ? 'Pause' : 'Play';
+            btnPlay.classList.toggle('button-warn', playing);
         }
 
         function loop(timestamp) {
@@ -331,11 +372,9 @@
                 }
                 animationId = requestAnimationFrame(loop);
             } catch (e) {
-                console.error("Game Loop Error:", e);
+                console.error('Game Loop Error:', e);
                 isPlaying = false;
-                btnPlay.innerHTML = '<i class="fas fa-play"></i> Play';
-                btnPlay.classList.remove('bg-yellow-500');
-                btnPlay.classList.add('bg-[#22d3ee]');
+                setPlayButton(false);
                 cancelAnimationFrame(animationId);
             }
         }
@@ -343,19 +382,54 @@
         function togglePlay() {
             isPlaying = !isPlaying;
             if (isPlaying) {
-                btnPlay.innerHTML = '<i class="fas fa-pause"></i> Pause';
-                btnPlay.classList.remove('bg-[#22d3ee]');
-                btnPlay.classList.add('bg-yellow-500');
-                loop(0);
+                setPlayButton(true);
+                lastFrameTime = 0;
+                animationId = requestAnimationFrame(loop);
             } else {
-                btnPlay.innerHTML = '<i class="fas fa-play"></i> Play';
-                btnPlay.classList.remove('bg-yellow-500');
-                btnPlay.classList.add('bg-[#22d3ee]');
+                setPlayButton(false);
                 cancelAnimationFrame(animationId);
             }
         }
 
-        // Event Listeners
+        function clientPoint(e) {
+            if (e.touches && e.touches[0]) {
+                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            return { x: e.clientX, y: e.clientY };
+        }
+
+        function cellFromEvent(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const point = clientPoint(e);
+            const col = Math.floor(((point.x - rect.left) * scaleX) / cellSize);
+            const row = Math.floor(((point.y - rect.top) * scaleY) / cellSize);
+            if (col < 0 || col >= cols || row < 0 || row >= rows) return null;
+            return { col, row };
+        }
+
+        function paintCell(col, row) {
+            if (paintMode === null) return;
+            grid[col][row] = paintMode;
+            draw();
+            updateStats();
+        }
+
+        function beginPaint(e) {
+            const cell = cellFromEvent(e);
+            if (!cell) return;
+            // Toggle: erase if alive, paint if dead — stick to that mode while dragging
+            paintMode = grid[cell.col][cell.row] === 1 ? 0 : 1;
+            paintCell(cell.col, cell.row);
+        }
+
+        function continuePaint(e) {
+            if (paintMode === null) return;
+            const cell = cellFromEvent(e);
+            if (cell) paintCell(cell.col, cell.row);
+        }
+
         window.addEventListener('resize', resizeCanvas);
 
         btnPlay.addEventListener('click', togglePlay);
@@ -375,48 +449,34 @@
         });
 
         speedSlider.addEventListener('input', (e) => {
-            fps = parseInt(e.target.value);
+            fps = parseInt(e.target.value, 10);
         });
-
-        // Drawing interaction
-        let isDrawing = false;
-
-        function handleInput(e) {
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX || e.touches[0].clientX;
-            const y = e.clientY || e.touches[0].clientY;
-            const col = Math.floor((x - rect.left) / cellSize);
-            const row = Math.floor((y - rect.top) / cellSize);
-
-            if (col >= 0 && col < cols && row >= 0 && row < rows) {
-                grid[col][row] = 1;
-                draw();
-            }
-        }
 
         canvas.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            handleInput(e);
+            beginPaint(e);
         });
         canvas.addEventListener('mousemove', (e) => {
-            if (isDrawing) handleInput(e);
+            continuePaint(e);
         });
-        window.addEventListener('mouseup', () => isDrawing = false);
+        window.addEventListener('mouseup', () => {
+            paintMode = null;
+        });
 
         canvas.addEventListener('touchstart', (e) => {
-            isDrawing = true;
-            handleInput(e);
-            e.preventDefault(); // Prevent scrolling
-        }, { passive: false });
-        canvas.addEventListener('touchmove', (e) => {
-            if (isDrawing) handleInput(e);
+            beginPaint(e);
             e.preventDefault();
         }, { passive: false });
-        window.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('touchmove', (e) => {
+            continuePaint(e);
+            e.preventDefault();
+        }, { passive: false });
+        window.addEventListener('touchend', () => {
+            paintMode = null;
+        });
 
-        // Init
         resizeCanvas();
         randomizeGrid();
+        // Wait for Play — do not autoplay
     </script>
 </body>
 

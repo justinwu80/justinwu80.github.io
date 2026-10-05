@@ -1,168 +1,353 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTD6 Interactive Crosspath Guide</title>
+    <title>BTD6 Interactive Crosspath Guide | Justin Wu</title>
     <link rel="icon" type="image/png" href="ninja.png">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'accent-color': 'var(--accent-color)',
-                        'accent-hover': 'var(--accent-hover)',
-                        'light-primary': 'var(--text-light-primary)',
-                        'dark-primary': 'var(--text-dark-primary)',
-                        'light-secondary': 'var(--text-light-secondary)',
-                        'dark-secondary': 'var(--text-dark-secondary)',
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../project.css">
     <style>
-        /* BTD6 Specific Styles */
-        .details {
-            max-height: 0;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-            padding-top: 0;
-            padding-bottom: 0;
+        .hero-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-with-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .btd-layout {
+            display: grid;
+            grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .filters {
+            position: sticky;
+            top: 1rem;
+        }
+
+        .filter-list {
+            display: grid;
+            gap: 0.4rem;
+            margin-top: 0.85rem;
+        }
+
+        .filter-btn {
+            min-height: 2.4rem;
+            padding: 0.45rem 0.75rem;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: #fff;
+            color: var(--muted);
+            font: inherit;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--ink);
+            background: var(--accent-soft);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        #monkey-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--muted);
+            font-style: italic;
+            border: 1px dashed var(--line);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .monkey-card {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
             overflow: hidden;
         }
 
-        .card.open .details {
-            max-height: 2000px;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+        .type-border-Military { border-left: 5px solid #b42318; }
+        .type-border-Primary { border-left: 5px solid #1f4f78; }
+        .type-border-Magic { border-left: 5px solid #6941c6; }
+        .type-border-Support { border-left: 5px solid #b54708; }
+
+        .card-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.1rem;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+        }
+
+        .card-header:hover {
+            background: var(--accent-soft);
+        }
+
+        .card-header:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+
+        .card-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            min-width: 0;
+        }
+
+        .card-title-wrap h3 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            flex-shrink: 0;
+        }
+
+        .type-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
         }
 
         .chevron {
-            transition: transform 0.3s ease-in-out;
+            color: var(--muted);
+            transition: transform 0.2s ease;
+            font-size: 0.85rem;
         }
 
-        .card.open .chevron {
+        .monkey-card.open .chevron {
             transform: rotate(180deg);
         }
 
-        .type-border-Military {
-            border-left: 5px solid #ef4444;
+        .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: #f8fafc;
+            border-top: 0 solid var(--line);
         }
 
-        .type-border-Primary {
-            border-left: 5px solid #3b82f6;
+        .monkey-card.open .details {
+            max-height: 2400px;
+            border-top-width: 1px;
         }
 
-        .type-border-Magic {
-            border-left: 5px solid #a855f7;
+        .upgrade {
+            padding: 1rem 1.1rem;
+            border-top: 1px solid var(--line);
         }
 
-        .type-border-Support {
-            border-left: 5px solid #f97316;
+        .upgrade:first-child {
+            border-top: 0;
         }
 
-        /* Override main container for this specific layout if needed */
-        .btd6-container {
-            background-color: var(--container-light);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .upgrade-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.85rem;
+            align-items: flex-start;
         }
 
-        .dark .btd6-container {
-            background-color: var(--container-dark);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .rank {
+            font-family: var(--serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.45;
+            line-height: 1;
+            min-width: 2.25rem;
+        }
+
+        .upgrade-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .upgrade-body h4 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .crosspath-label {
+            margin: 0.2rem 0 0;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .crosspath {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .crosspath span {
+            width: 1.85rem;
+            height: 1.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .path-0 { background: #b42318; }
+        .path-1 { background: #1f4f78; }
+        .path-2 { background: #067647; }
+
+        .ability-icons {
+            display: flex;
+            gap: 0.35rem;
+            margin: 0.55rem 0;
+            align-items: center;
+        }
+
+        .ability-icons img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .ability-icons .off {
+            opacity: 0.22;
+            filter: grayscale(1);
+        }
+
+        .notes {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.55;
+        }
+
+        .upgrade-row {
+            display: flex;
+            gap: 0.85rem;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 900px) {
+            .btd-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                position: static;
+            }
+
+            #monkey-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
     </style>
 </head>
 
-<body class="transition-colors duration-300">
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="loader-content"></div>
-    </div>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <a class="brand" href="../">Justin Wu</a>
+            <nav class="nav-links">
+                <a href="../">Back to portfolio</a>
+            </nav>
+        </header>
 
-    <!-- Background Canvas -->
-    <canvas id="starfield"></canvas>
-
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
-        <div class="btd6-container shadow-2xl rounded-3xl p-4 sm:p-8">
-            <header class="text-center mb-10 reveal">
-                <div class="flex justify-center items-center mb-4 gap-4">
-                    <img src="ninja.png" alt="BTD6 Ninja" class="w-20 h-20 drop-shadow-lg animate-bounce-slow">
-                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter">BTD6 Crosspath Guide</h1>
+        <section class="demo-hero">
+            <div class="hero-with-icon">
+                <img src="ninja.png" alt="" width="48" height="48">
+                <div>
+                    <p class="eyebrow">Interactive guide</p>
+                    <h1>BTD6 Crosspath Guide</h1>
                 </div>
-                <p class="text-xl text-light-secondary dark:text-dark-secondary mt-2 max-w-3xl mx-auto">The ultimate
-                    interactive guide for Tier 5 crosspaths in Bloons TD 6. Find the best upgrade paths and dominate
-                    every map.</p>
-                <div class="mt-6">
-                    <a href="../" class="text-[#22d3ee] hover:text-accent-hover font-bold transition-colors"><i
-                            class="fas fa-arrow-left mr-2"></i>Back to Portfolio</a>
-                </div>
-            </header>
-
-            <div class="flex flex-col lg:flex-row gap-8">
-                <aside class="w-full lg:w-1/4 lg:sticky top-8 self-start reveal">
-                    <div class="p-6 rounded-2xl bg-card shadow-lg border border-theme">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold">Controls</h2>
-                        </div>
-                        <div class="space-y-4">
-                            <input type="text" id="search-input" placeholder="Search monkeys..."
-                                class="w-full p-3 rounded-xl bg-[#22d3ee] text-gray-900 placeholder-gray-700 border-transparent focus:ring-2 focus:ring-white focus:outline-none transition font-bold">
-                            <div>
-                                <label for="sort-select"
-                                    class="block text-sm font-medium text-gray-900 dark:text-dark-secondary mb-1">Sort
-                                    by</label>
-                                <select id="sort-select"
-                                    class="w-full p-3 rounded-xl bg-[#22d3ee] text-gray-900 border-transparent focus:ring-2 focus:ring-white focus:outline-none transition font-bold">
-                                    <option value="name">Name</option>
-                                    <option value="rank">Best Path Rank</option>
-                                    <option value="type">Type</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="filter-container" class="grid grid-cols-2 lg:grid-cols-1 gap-2 mt-6">
-                            <button
-                                class="filter-btn p-3 rounded-xl font-semibold text-gray-900 dark:text-dark-secondary active text-left hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                                data-type="all">All Monkeys</button>
-                            <button
-                                class="filter-btn p-3 rounded-xl font-semibold text-light-secondary dark:text-dark-secondary text-left hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                                data-type="Primary">Primary</button>
-                            <button
-                                class="filter-btn p-3 rounded-xl font-semibold text-light-secondary dark:text-dark-secondary text-left hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                                data-type="Military">Military</button>
-                            <button
-                                class="filter-btn p-3 rounded-xl font-semibold text-light-secondary dark:text-dark-secondary text-left hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                                data-type="Magic">Magic</button>
-                            <button
-                                class="filter-btn p-3 rounded-xl font-semibold text-light-secondary dark:text-dark-secondary text-left hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                                data-type="Support">Support</button>
-                        </div>
-                    </div>
-                </aside>
-
-                <main id="monkey-grid" class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-6 reveal items-start">
-                </main>
             </div>
+            <p>Tier 5 crosspath recommendations for Bloons TD 6 — filter by tower type, search upgrades, and expand a card for notes.</p>
+        </section>
+
+        <div class="btd-layout">
+            <aside class="panel filters controls">
+                <h2>Controls</h2>
+                <div class="field">
+                    <label for="search-input">Search</label>
+                    <input type="search" id="search-input" placeholder="Search monkeys or upgrades…">
+                </div>
+                <div class="field">
+                    <label for="sort-select">Sort by</label>
+                    <select id="sort-select">
+                        <option value="name">Name</option>
+                        <option value="rank">Best path rank</option>
+                        <option value="type">Type</option>
+                    </select>
+                </div>
+                <div id="filter-container" class="filter-list" role="group" aria-label="Filter by type">
+                    <button type="button" class="filter-btn active" data-type="all">All monkeys</button>
+                    <button type="button" class="filter-btn" data-type="Primary">Primary</button>
+                    <button type="button" class="filter-btn" data-type="Military">Military</button>
+                    <button type="button" class="filter-btn" data-type="Magic">Magic</button>
+                    <button type="button" class="filter-btn" data-type="Support">Support</button>
+                </div>
+            </aside>
+
+            <main id="monkey-grid" aria-live="polite"></main>
         </div>
     </div>
 
-    <button id="theme-toggle"
-        class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-card shadow-lg flex items-center justify-center text-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#22d3ee] border border-theme transition-transform duration-300 hover:scale-110 z-50">
-        <i id="theme-icon-light" class="fas fa-sun text-yellow-500"></i>
-        <i id="theme-icon-dark" class="fas fa-moon text-blue-300 hidden"></i>
-    </button>
-
-    <script src="../script.js"></script>
     <script>
-        // BTD6 Specific Data & Logic
         const crosspathData = {
             "monkeys": [
                 { "type": "Primary", "name": "Dart Monkey", "defaultCamo": false, "defaultLead": false, "upgrades": [{ "rank": 2, "name": "Ultra-Juggernaut", "crosspath": "5-0-2", "notes": "5-0-2 is generally better for the extra range and camo detection. 5-2-0 provides more attack speed, which is superior on maps with lots of walls for bouncing.", "canPopCamo": true, "canPopLead": true }, { "rank": 3, "name": "Plasma Monkey Fan Club", "crosspath": "2-5-0", "notes": "The 2-5-0 crosspath provides more pierce to the base Dart Monkey and all transformed monkeys, making it far more effective against dense bloon rounds.", "canPopCamo": false, "canPopLead": true }, { "rank": 1, "name": "Crossbow Master", "crosspath": "0-2-5", "notes": "Almost always 0-2-5. The attack speed from the middle path provides a massive DPS increase that far outweighs the small pierce bonus from the top path.", "canPopCamo": true, "canPopLead": true }] },
@@ -199,16 +384,32 @@
             const searchInput = document.getElementById('search-input');
             const sortSelect = document.getElementById('sort-select');
 
-            // Note: Theme toggle logic is now handled by the global script.js
-            // We just need to make sure the UI reflects the state if needed, but script.js does that too.
+            const camoIcon = (on) =>
+                `<img src="camo.png" class="${on ? '' : 'off'}" title="${on ? 'Can pop Camo' : 'Cannot pop Camo'}" alt="${on ? 'Camo' : 'No camo'}">`;
+            const leadIcon = (on) =>
+                `<img src="lead.png" class="${on ? '' : 'off'}" title="${on ? 'Can pop Lead' : 'Cannot pop Lead'}" alt="${on ? 'Lead' : 'No lead'}">`;
 
-            const camoIcon = `<img src="camo.png" class="w-6 h-6 inline-block" title="Can pop Camo Bloons" alt="Camo Icon">`;
-            const leadIcon = `<img src="lead.png" class="w-6 h-6 inline-block" title="Can pop Lead Bloons" alt="Lead Icon">`;
+            const getIcons = (canCamo, canLead) => {
+                let html = '';
+                if (canCamo === true) html += camoIcon(true);
+                else if (canCamo === false) html += camoIcon(false);
+                if (canLead === true) html += leadIcon(true);
+                else if (canLead === false) html += leadIcon(false);
+                return html ? `<div class="ability-icons">${html}</div>` : '';
+            };
 
-            const getIcon = (canPop, iconHtml) => canPop === true ? iconHtml : canPop === false ? `<div class="w-6 h-6 inline-block opacity-20 grayscale">${iconHtml}</div>` : '';
+            const renderCrosspath = (crosspath) => {
+                if (!crosspath || crosspath === 'N/A') {
+                    return `<div class="crosspath"><span class="path-1" style="width:auto;padding:0 0.4rem;">N/A</span></div>`;
+                }
+                return `<div class="crosspath">${crosspath.split('-').map((p, i) =>
+                    `<span class="path-${i}">${p}</span>`
+                ).join('')}</div>`;
+            };
 
             const renderMonkeys = () => {
-                const filter = filterContainer.querySelector('.active').dataset.type;
+                const active = filterContainer.querySelector('.active');
+                const filter = active ? active.dataset.type : 'all';
                 const searchTerm = searchInput.value.toLowerCase();
                 const sortBy = sortSelect.value;
 
@@ -235,55 +436,43 @@
                 }
 
                 if (filteredMonkeys.length === 0) {
-                    monkeyGrid.innerHTML = `<p class="text-light-secondary dark:text-dark-secondary italic col-span-full text-center py-10">No monkeys found. Try a different search or filter.</p>`;
+                    monkeyGrid.innerHTML = `<p class="empty-state">No monkeys found. Try a different search or filter.</p>`;
                     return;
                 }
 
-                filteredMonkeys.forEach(monkey => {
-                    const card = document.createElement('div');
-                    // Added tilt-card class for 3D effect
-                    card.className = `card tilt-card bg-card shadow-lg rounded-2xl border border-theme type-border-${monkey.type} transition-all duration-300 overflow-hidden`;
+                filteredMonkeys.forEach((monkey, index) => {
+                    const card = document.createElement('article');
+                    card.className = `monkey-card type-border-${monkey.type}`;
 
+                    const panelId = `details-${index}-${monkey.name.replace(/\s+/g, '-').toLowerCase()}`;
                     const sortedUpgrades = [...monkey.upgrades].sort((a, b) => a.rank - b.rank);
 
                     card.innerHTML = `
-                        <div class="p-6 cursor-pointer header hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center gap-4">
-                                    <h3 class="text-2xl font-bold text-light-primary dark:text-dark-primary">${monkey.name}</h3>
-                                    <div class="flex gap-2">
-                                        ${getIcon(monkey.defaultCamo, camoIcon)}
-                                        ${getIcon(monkey.defaultLead, leadIcon)}
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-xs font-bold text-light-secondary dark:text-dark-secondary uppercase tracking-wider border border-theme px-2 py-1 rounded-md">${monkey.type}</span>
-                                    <span class="chevron text-light-secondary dark:text-dark-secondary">
-                                        <i class="fas fa-chevron-down text-xl"></i>
-                                    </span>
-                                </div>
+                        <button type="button" class="card-header" aria-expanded="false" aria-controls="${panelId}">
+                            <div class="card-title-wrap">
+                                <h3>${monkey.name}</h3>
+                                ${getIcons(monkey.defaultCamo, monkey.defaultLead)}
                             </div>
-                        </div>
-                        <div class="details px-6 bg-gray-50 dark:bg-slate-800/50">
+                            <div class="card-meta">
+                                <span class="type-badge">${monkey.type}</span>
+                                <span class="chevron" aria-hidden="true">▾</span>
+                            </div>
+                        </button>
+                        <div class="details" id="${panelId}" role="region" hidden>
                             ${sortedUpgrades.map(upgrade => `
-                                <div class="py-5 border-t border-theme first:border-t-0">
-                                    <div class="flex items-start gap-5">
-                                        <div class="text-5xl font-black text-[#22d3ee] w-12 text-center opacity-40">#${upgrade.rank}</div>
-                                        <div class="flex-1">
-                                            <div class="flex justify-between items-start mb-2">
+                                <div class="upgrade">
+                                    <div class="upgrade-row">
+                                        <div class="rank">#${upgrade.rank}</div>
+                                        <div class="upgrade-body">
+                                            <div class="upgrade-top">
                                                 <div>
-                                                    <h4 class="text-xl font-bold text-[#22d3ee]">${upgrade.name}</h4>
-                                                    <p class="text-xs text-light-secondary dark:text-dark-secondary font-bold uppercase tracking-wider mt-1">Best Crosspath</p>
+                                                    <h4>${upgrade.name}</h4>
+                                                    <p class="crosspath-label">Best crosspath</p>
                                                 </div>
-                                                <div class="flex flex-col items-center gap-1 text-center text-lg font-bold text-white bg-slate-700 dark:bg-slate-900 p-2 rounded-lg shadow-inner">
-                                                    ${upgrade.crosspath.split('-').map((p, i) => `<span class="w-8 h-8 flex items-center justify-center rounded-md ${['bg-red-500', 'bg-blue-500', 'bg-green-500'][i]} shadow-sm">${p}</span>`).join('')}
-                                                </div>
+                                                ${renderCrosspath(upgrade.crosspath)}
                                             </div>
-                                            <div class="flex items-center mt-2 gap-2 mb-3">
-                                                ${getIcon(upgrade.canPopCamo, camoIcon)}
-                                                ${getIcon(upgrade.canPopLead, leadIcon)}
-                                            </div>
-                                            <p class="text-md text-light-secondary dark:text-dark-secondary leading-relaxed">${upgrade.notes || ''}</p>
+                                            ${getIcons(upgrade.canPopCamo, upgrade.canPopLead)}
+                                            <p class="notes">${upgrade.notes || ''}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -293,41 +482,37 @@
                     monkeyGrid.appendChild(card);
                 });
 
-                document.querySelectorAll('.card .header').forEach(header => {
-                    header.addEventListener('click', (e) => {
-                        // Prevent tilt effect from interfering with click if needed, but usually fine
-                        header.parentElement.classList.toggle('open');
+                monkeyGrid.querySelectorAll('.card-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const card = header.parentElement;
+                        const details = card.querySelector('.details');
+                        const open = !card.classList.contains('open');
+                        card.classList.toggle('open', open);
+                        header.setAttribute('aria-expanded', open ? 'true' : 'false');
+                        if (open) {
+                            details.removeAttribute('hidden');
+                        } else {
+                            // Delay hidden until collapse finishes for animation
+                            setTimeout(() => {
+                                if (!card.classList.contains('open')) details.setAttribute('hidden', '');
+                            }, 350);
+                        }
                     });
                 });
-
-                // Re-initialize tilt effect for new cards
-                if (window.initTiltEffect) window.initTiltEffect();
             };
 
             filterContainer.addEventListener('click', (e) => {
-                if (e.target.tagName === 'BUTTON') {
-                    filterContainer.querySelectorAll('button').forEach(btn => {
-                        btn.classList.remove('active', 'bg-[#22d3ee]', 'text-gray-900', 'dark:text-white');
-                        btn.classList.add('text-light-secondary', 'dark:text-dark-secondary');
-                    });
-                    e.target.classList.add('active', 'bg-[#22d3ee]', 'text-gray-900', 'dark:text-white');
-                    e.target.classList.remove('text-light-secondary', 'dark:text-dark-secondary');
-                    renderMonkeys();
-                }
+                const btn = e.target.closest('button.filter-btn');
+                if (!btn) return;
+                filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderMonkeys();
             });
 
             searchInput.addEventListener('input', renderMonkeys);
             sortSelect.addEventListener('change', renderMonkeys);
 
-            // Initial render
             renderMonkeys();
-
-            // Style active button on load
-            const activeButton = filterContainer.querySelector('.active');
-            if (activeButton) {
-                activeButton.classList.add('bg-[#22d3ee]', 'text-gray-900', 'dark:text-white');
-                activeButton.classList.remove('text-light-secondary', 'dark:text-dark-secondary');
-            }
         });
     </script>
 </body>
