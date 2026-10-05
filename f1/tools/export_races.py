@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
-"""Export FastF1 races into Apex JSON.gz packs with Kalman smoothing.
+"""Export FastF1 races into Apex JSON.gz packs.
 
-Produces lite packs suitable for GitHub Pages (~1-3MB each).
+Raw FastF1 telemetry is normalised into scene units, then passed through
+``track_align`` so every car is expressed in track coordinates (arc length +
+lateral offset), RTS-Kalman smoothed, and snapped onto the rendered road.
 """
 from __future__ import annotations
 
 import argparse
 import gzip
 import json
-import math
 import re
 import sys
 from pathlib import Path
 
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from track_align import align_race, normalize_scene  # noqa: E402
 
 try:
     import fastf1
@@ -21,41 +25,23 @@ except ImportError:
     print("fastf1 required", file=sys.stderr)
     raise
 
+RAW_STEP_S = 0.5
+
 
 def slugify(text: str) -> str:
-    text = text.lower()
-    text = re.sub(r"[^a-z0-9]+", "-", text).strip("-")
-    return text
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
-def kalman_1d(values, process_var=8e-4, measure_var=3.5):
-    if len(values) == 0:
-        return values
-    x = float(values[0])
-    p = 1.0
-    out = []
-    for z in values:
-        p = p + process_var
-        k = p / (p + measure_var)
-        x = x + k * (float(z) - x)
-        p = (1 - k) * p
-        out.append(x)
-    return out
+def seconds(td_series) -> np.ndarray:
+    return td_series.dt.total_seconds().to_numpy(dtype=float)
 
 
-def downsample(samples, hz=1.0):
-    if not samples:
-        return samples
-    out = [samples[0]]
-    last_t = samples[0]["t"]
-    step = 1.0 / hz
-    for s in samples[1:]:
-        if s["t"] - last_t >= step - 1e-9:
-            out.append(s)
-            last_t = s["t"]
-    if out[-1] is not samples[-1]:
-        out.append(samples[-1])
-    return out
+def thin(t: np.ndarray, step: float) -> np.ndarray:
+    keep = [0]
+    for i in range(1, len(t)):
+        if t[i] - t[keep[-1]] >= step:
+            keep.append(i)
+    return np.array(keep, dtype=int)
 
 
 def export_session(year: int, round_number: int, out_dir: Path, hz: float = 1.0) -> dict | None:
@@ -70,33 +56,19 @@ def export_session(year: int, round_number: int, out_dir: Path, hz: float = 1.0)
 
     session = fastf1.get_session(year, round_number, "R")
     session.load(telemetry=True, weather=False, messages=False)
-
     laps = session.laps
     if laps is None or laps.empty:
         print("  no laps")
         return None
 
-    # Track outline from a representative lap
-    centerline = []
-    width = 5.5
-    try:
-        ref = laps.pick_fastest()
-        tel = ref.get_telemetry()
-        xs = tel["X"].to_numpy(dtype=float)
-        ys = tel["Y"].to_numpy(dtype=float)
-        # scale like existing packs (~meters -> scene units)
-        scale = 0.1
-        cx, cy = xs.mean(), ys.mean()
-        centerline = [[float((x - cx) * scale), float((y - cy) * scale)] for x, y in zip(xs[::max(1, len(xs)//800)], ys[::max(1, len(xs)//800)])]
-        # reuse scale for cars
-    except Exception as e:
-        print("  track failed", e)
-        scale = 0.1
-        cx = cy = 0.0
+    ref_tel = laps.pick_fastest().get_telemetry()
+    centerline = ref_tel[["X", "Y"]].to_numpy(dtype=float)
+    centerline = centerline[np.isfinite(centerline).all(1)]
 
+    race_start = None
     drivers = []
     for drv in sorted(laps["Driver"].unique()):
-        d_laps = laps.pick_drivers(drv)
+        d_laps = laps.pick_drivers(drv).sort_values("LapNumber")
         if d_laps.empty:
             continue
         try:
@@ -105,54 +77,42 @@ def export_session(year: int, round_number: int, out_dir: Path, hz: float = 1.0)
             continue
         if tel is None or tel.empty:
             continue
-
-        # relative time from race start
-        t0 = tel["SessionTime"].iloc[0]
+        t = seconds(tel["SessionTime"])
+        idx = thin(t, RAW_STEP_S)
+        tel = tel.iloc[idx]
+        t = t[idx]
+        lap_start = seconds(d_laps["LapStartTime"])
+        lap_no = d_laps["LapNumber"].to_numpy(dtype=float)
+        lap_pos = d_laps["Position"].to_numpy(dtype=float)
+        li = np.clip(np.searchsorted(lap_start, t, side="right") - 1, 0, len(lap_no) - 1)
+        speed = tel["Speed"].to_numpy(dtype=float)
+        throttle = tel["Throttle"].to_numpy(dtype=float) / 100.0
+        brake = tel["Brake"].astype(float).to_numpy()
+        dist = tel["Distance"].to_numpy(dtype=float)
+        rel = tel["RelativeDistance"].to_numpy(dtype=float)
+        xs = tel["X"].to_numpy(dtype=float)
+        ys = tel["Y"].to_numpy(dtype=float)
         samples = []
-        for _, row_t in tel.iterrows():
-            st = row_t["SessionTime"]
-            t = float((st - t0).total_seconds()) if hasattr(st - t0, "total_seconds") else float(st)
-            # prefer Date-based if SessionTime weird
+        for k in range(len(t)):
+            if not (np.isfinite(xs[k]) and np.isfinite(ys[k])):
+                continue
             samples.append({
-                "t": t,
-                "lap": int(row_t["LapNumber"]) if not math.isnan(row_t.get("LapNumber", float("nan"))) else 1,
-                "position": float(row_t["Position"]) if "Position" in row_t and not math.isnan(row_t["Position"]) else 0.0,
-                "x": float((row_t["X"] - cx) * scale),
-                "y": float((row_t["Y"] - cy) * scale),
-                "speed": float(row_t["Speed"]) if not math.isnan(row_t["Speed"]) else 0.0,
-                "throttle": float(row_t["Throttle"]) / 100.0 if not math.isnan(row_t["Throttle"]) else 0.0,
-                "brake": float(row_t["Brake"]) if isinstance(row_t["Brake"], (int, float)) else (1.0 if row_t["Brake"] else 0.0),
-                "distance": float(row_t["Distance"]) if "Distance" in row_t and not math.isnan(row_t["Distance"]) else 0.0,
-                "relativeDistance": float(row_t["RelativeDistance"]) if "RelativeDistance" in row_t and not math.isnan(row_t["RelativeDistance"]) else 0.0,
+                "t": float(t[k]),
+                "lap": int(lap_no[li[k]]) if np.isfinite(lap_no[li[k]]) else 1,
+                "position": float(lap_pos[li[k]]) if np.isfinite(lap_pos[li[k]]) else 0.0,
+                "x": float(xs[k]),
+                "y": float(ys[k]),
+                "speed": float(np.nan_to_num(speed[k])),
+                "throttle": float(np.clip(np.nan_to_num(throttle[k]), 0, 1)),
+                "brake": float(np.nan_to_num(brake[k])),
+                "distance": float(np.nan_to_num(dist[k])),
+                "relativeDistance": float(np.nan_to_num(rel[k])),
             })
-
-        # Fix timestamps using Distance/SessionTime properly
-        try:
-            times = tel["SessionTime"]
-            base = times.iloc[0]
-            for i, st in enumerate(times):
-                samples[i]["t"] = float((st - base).total_seconds())
-        except Exception:
-            pass
-
-        samples = downsample(samples, hz=hz)
         if len(samples) < 10:
             continue
-
-        xs = kalman_1d([s["x"] for s in samples])
-        ys = kalman_1d([s["y"] for s in samples])
-        speeds = kalman_1d([s["speed"] for s in samples], process_var=2e-2, measure_var=6.0)
-        for i, s in enumerate(samples):
-            s["x"] = round(xs[i], 3)
-            s["y"] = round(ys[i], 3)
-            s["speed"] = round(max(0.0, speeds[i]), 2)
-            s["throttle"] = round(float(s.get("throttle", 0)), 3)
-            s["brake"] = round(float(s.get("brake", 0)), 3)
-            s["distance"] = round(float(s.get("distance", 0)), 2)
-            s["relativeDistance"] = round(float(s.get("relativeDistance", 0)), 5)
-
+        race_start = samples[0]["t"] if race_start is None else min(race_start, samples[0]["t"])
         info = session.get_driver(drv)
-        team_color = "#" + str(getattr(info, "TeamColor", "888888")).lstrip("#")
+        team_color = "#" + str(getattr(info, "TeamColor", "888888") or "888888").lstrip("#")
         drivers.append({
             "code": str(drv),
             "number": str(getattr(info, "DriverNumber", "")),
@@ -160,30 +120,27 @@ def export_session(year: int, round_number: int, out_dir: Path, hz: float = 1.0)
             "samples": samples,
         })
 
-    if not drivers or not centerline:
+    if not drivers or len(centerline) < 50:
         print("  insufficient data")
         return None
-
-    # Normalize time so race starts at 0 using min t across drivers
-    min_t = min(d["samples"][0]["t"] for d in drivers)
     for d in drivers:
         for s in d["samples"]:
-            s["t"] = round(s["t"] - min_t, 3)
+            s["t"] -= race_start
+
+    raw = {
+        "event": {"year": year, "name": event_name, "circuit": location, "country": country},
+        "track": {"centerline": centerline.tolist(), "width": 5.5},
+        "drivers": drivers,
+        "source": "fastf1-cache",
+    }
+    payload, summary = align_race(normalize_scene(raw), hz=hz, rebuild_centerline=True)
 
     slug = slugify(event_name.replace("Grand Prix", "").strip() or location)
     race_id = f"{year}-{round_number:02d}-{slug}"
-    payload = {
-        "event": {"year": year, "name": event_name, "circuit": location, "country": country},
-        "track": {"centerline": centerline, "width": width},
-        "drivers": drivers,
-        "processing": {"kalman": True, "spline": "catmull-rom-runtime", "sampleHz": hz},
-        "source": "fastf1-cache",
-    }
     out_path = out_dir / f"{race_id}.json.gz"
-    with gzip.open(out_path, "wt", encoding="utf-8") as f:
+    with gzip.open(out_path, "wt", encoding="utf-8", compresslevel=9) as f:
         json.dump(payload, f, separators=(",", ":"))
-    size_mb = out_path.stat().st_size / 1e6
-    print(f"  wrote {out_path.name} ({size_mb:.2f} MB, {len(drivers)} drivers)")
+    print(f"  wrote {out_path.name} ({out_path.stat().st_size / 1e6:.2f} MB) {summary}", flush=True)
     return {
         "id": race_id,
         "label": f"{year} {event_name.replace('Grand Prix', 'GP').strip()}",
@@ -193,76 +150,46 @@ def export_session(year: int, round_number: int, out_dir: Path, hz: float = 1.0)
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--years", nargs="+", type=int, default=[2024, 2023, 2022, 2021, 2020])
-    parser.add_argument("--hz", type=float, default=0.5)
-    parser.add_argument("--limit", type=int, default=0, help="Max races to export (0=all)")
+    parser.add_argument("--years", nargs="+", type=int, default=[2024])
+    parser.add_argument("--rounds", nargs="+", type=int, default=None)
+    parser.add_argument("--hz", type=float, default=1.0)
+    parser.add_argument("--force", action="store_true", help="Re-export packs that already exist")
     args = parser.parse_args()
 
     cache = Path("f1/.fastf1-cache")
     cache.mkdir(parents=True, exist_ok=True)
     fastf1.Cache.enable_cache(str(cache))
+    fastf1.set_log_level("ERROR")
 
     out_dir = Path("f1/data/races")
     out_dir.mkdir(parents=True, exist_ok=True)
     catalog_path = Path("f1/data/races.json")
     catalog = json.loads(catalog_path.read_text())
-    existing_ids = {r["id"] for r in catalog["races"]}
+    by_id = {r["id"]: r for r in catalog["races"]}
 
-    added = []
-    count = 0
     for year in args.years:
         schedule = fastf1.get_event_schedule(year, include_testing=False)
-        for rnd in schedule["RoundNumber"].tolist():
-            if int(rnd) <= 0:
-                continue
-            # Skip rounds that already have an exported pack on disk.
-            schedule_row = schedule.loc[schedule["RoundNumber"] == int(rnd)]
-            if schedule_row.empty:
-                continue
-            event_name = str(schedule_row.iloc[0]["EventName"])
-            slug = slugify(event_name.replace("Grand Prix", "").strip() or str(schedule_row.iloc[0].get("Location", "")))
-            race_id = f"{year}-{int(rnd):02d}-{slug}"
-            out_path = out_dir / f"{race_id}.json.gz"
-            if out_path.exists() or race_id in existing_ids:
+        rounds = args.rounds or [int(r) for r in schedule["RoundNumber"].tolist() if int(r) > 0]
+        for rnd in rounds:
+            event_name = str(schedule.loc[schedule["RoundNumber"] == rnd].iloc[0]["EventName"])
+            slug = slugify(event_name.replace("Grand Prix", "").strip())
+            race_id = f"{year}-{rnd:02d}-{slug}"
+            if (out_dir / f"{race_id}.json.gz").exists() and not args.force:
                 print(f"Skipping existing {race_id}")
-                if race_id not in existing_ids:
-                    entry = {
-                        "id": race_id,
-                        "label": f"{year} {event_name.replace('Grand Prix', 'GP').strip()}",
-                        "url": f"data/races/{out_path.name}",
-                    }
-                    catalog["races"].append(entry)
-                    existing_ids.add(race_id)
                 continue
-
-            tentative = None
             try:
-                tentative = export_session(year, int(rnd), out_dir, hz=args.hz)
+                entry = export_session(year, rnd, out_dir, hz=args.hz)
             except Exception as e:
-                print("  failed", e)
+                print(f"  failed {race_id}: {e}")
                 continue
-            if not tentative:
-                continue
-            catalog["races"].append(tentative)
-            existing_ids.add(tentative["id"])
-            added.append(tentative)
-            count += 1
-            if args.limit and count >= args.limit:
-                break
-        if args.limit and count >= args.limit:
-            break
+            if entry:
+                by_id[entry["id"]] = entry
 
-    # Keep sample demo at end; put historical before 2025? Sort by id
-    sample = [r for r in catalog["races"] if r.get("sample")]
-    real = [r for r in catalog["races"] if not r.get("sample")]
-    real.sort(key=lambda r: r["id"])
-    # Prefer adding 2021 britain orphan if present
-    orphan = Path("f1/data/race.json.gz")
-    if orphan.exists() and not any(r.get("url") == "data/race.json.gz" for r in real):
-        real.insert(0, {"id": "2021-10-britain", "label": "2021 British GP", "url": "data/race.json.gz"})
-    catalog["races"] = real + sample
+    sample = [r for r in by_id.values() if r.get("sample")]
+    real = sorted((r for r in by_id.values() if not r.get("sample")), key=lambda r: r["id"])
+    catalog["races"] = sample + real
     catalog_path.write_text(json.dumps(catalog, indent=2) + "\n")
-    print(f"Added {len(added)} races. Catalog now {len(catalog['races'])} entries.")
+    print(f"Catalog now {len(catalog['races'])} entries.")
 
 
 if __name__ == "__main__":
