@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Apex · 3D F1 Race Replay | Justin Wu</title>
-    <meta name="description" content="Apex — interactive 3D Formula 1 race replay with FastF1 telemetry, Kalman-smoothed paths, and TV camera modes." />
+    <meta name="description" content="Apex — interactive 3D Formula 1 race replay with FastF1 telemetry snapped to the circuit with RTS Kalman smoothing, and TV camera modes." />
     <link rel="icon" type="image/jpeg" href="../galaxy.jpeg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="./assets/index-oRgF-m0b.js"></script>
+    <script type="module" crossorigin src="./assets/index-oRgF-m0b.js?v=track-aligned"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DxN6nIHo.css">
     <link rel="stylesheet" href="./apex-chrome.css">
   </head>
@@ -25,7 +25,7 @@
           </div>
           <div class="status-pill" id="dataStatus">loading</div>
         </header>
-        <p class="pipeline-note">Loads one race at a time · Kalman-smoothed paths · Catmull-Rom · 0.5x–64x</p>
+        <p class="pipeline-note">Loads one race at a time · Track-aligned RTS Kalman smoothing · 0.5x–64x</p>
 
         <div id="weatherWidget" class="weather-widget">
           <div class="weather-main"><span class="weather-icon">⛅</span><span class="weather-label">Loading…</span></div>
