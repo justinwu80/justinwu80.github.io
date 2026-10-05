@@ -51,6 +51,11 @@
       "url": "data/races/2024-09-canadian.json.gz"
     },
     {
+      "id": "2024-10-spanish",
+      "label": "2024 Spanish GP",
+      "url": "data/races/2024-10-spanish.json.gz"
+    },
+    {
       "id": "2025-01-australia",
       "label": "2025 Australia GP",
       "url": "data/races/2025-01-australia.json.gz"
