@@ -41,6 +41,16 @@
       "url": "data/races/2024-07-emilia-romagna.json.gz"
     },
     {
+      "id": "2024-08-monaco",
+      "label": "2024 Monaco GP",
+      "url": "data/races/2024-08-monaco.json.gz"
+    },
+    {
+      "id": "2024-09-canadian",
+      "label": "2024 Canadian GP",
+      "url": "data/races/2024-09-canadian.json.gz"
+    },
+    {
       "id": "2025-01-australia",
       "label": "2025 Australia GP",
       "url": "data/races/2025-01-australia.json.gz"
