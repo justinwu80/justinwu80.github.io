@@ -1,45 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Knight's Tour Demo | Justin Wu</title>
     <link rel="icon" type="image/jpeg" href="../galaxy.jpeg">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'accent-color': 'var(--accent-color)',
-                        'accent-hover': 'var(--accent-hover)',
-                        'light-primary': 'var(--text-light-primary)',
-                        'dark-primary': 'var(--text-dark-primary)',
-                        'light-secondary': 'var(--text-light-secondary)',
-                        'dark-secondary': 'var(--text-dark-secondary)',
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../project.css">
     <style>
-        .game-container {
-            background-color: var(--container-light);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .dark .game-container {
-            background-color: var(--container-dark);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
         .board {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -47,25 +18,28 @@
             width: 100%;
             max-width: 500px;
             aspect-ratio: 1;
-            border: 4px solid var(--border-light);
-        }
-
-        .dark .board {
-            border-color: var(--border-dark);
+            border: 3px solid var(--ink);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0 auto;
+            cursor: pointer;
+            user-select: none;
         }
 
         .cell {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: background-color 0.2s;
+            font-weight: 700;
+            font-size: clamp(0.7rem, 2.2vw, 1.05rem);
+            font-variant-numeric: tabular-nums;
+            transition: background-color 0.15s ease;
+            position: relative;
         }
 
         .cell.white {
             background-color: #f0d9b5;
-            color: #b58863;
+            color: #7a5a3a;
         }
 
         .cell.black {
@@ -74,130 +48,137 @@
         }
 
         .cell.visited {
-            background-color: var(--accent-color) !important;
-            color: white !important;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: var(--accent) !important;
+            color: #fff !important;
         }
 
         .cell.current {
-            background-color: #ef4444 !important;
-            color: white !important;
-            transform: scale(1.1);
-            z-index: 10;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
-            border-radius: 4px;
+            background-color: #b42318 !important;
+            color: #fff !important;
+            z-index: 2;
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
         }
 
-        .knight-icon {
-            font-size: 2rem;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        .knight-glyph {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            line-height: 1;
+            color: #fff;
+        }
+
+        .btn-row {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .btn-row .button {
+            width: 100%;
+        }
+
+        .hint {
+            margin: 0.75rem 0 0;
+            font-size: 0.82rem;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        #status-text.is-running {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        #status-text.is-paused {
+            color: #b54708;
+            font-weight: 700;
+        }
+
+        #status-text.is-done {
+            color: #067647;
+            font-weight: 700;
+        }
+
+        #status-text.is-error {
+            color: #b42318;
+            font-weight: 700;
+        }
+
+        .source-link {
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
         }
     </style>
 </head>
 
-<body class="transition-colors duration-300">
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="loader-content"></div>
-    </div>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <a class="brand" href="../">Justin Wu</a>
+            <nav class="nav-links">
+                <a href="../">Back to portfolio</a>
+                <a class="source-link" href="https://github.com/justinwu80/Knights-Tour-Java" target="_blank" rel="noopener noreferrer">View source</a>
+            </nav>
+        </header>
 
-    <!-- Background Canvas -->
-    <canvas id="starfield"></canvas>
+        <section class="demo-hero">
+            <p class="eyebrow">Algorithm demo</p>
+            <h1>Knight's Tour</h1>
+            <p>Watch Warnsdorff's rule find a path that visits every square on the board exactly once.</p>
+        </section>
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 relative z-10 min-h-screen flex flex-col">
-        <div class="game-container shadow-2xl rounded-3xl p-6 flex-1 flex flex-col reveal">
-            <header class="flex justify-between items-center mb-6 flex-wrap gap-4">
-                <div class="flex items-center gap-4">
-                    <a href="../"
-                        class="text-accent-color hover:text-accent-hover font-bold transition-colors text-lg"><i
-                            class="fas fa-arrow-left mr-2"></i>Back</a>
-                    <h1 class="text-3xl md:text-4xl font-black tracking-tighter">Knight's Tour Visualization</h1>
-                </div>
-                <div class="flex gap-3">
-                    <a href="https://github.com/justinwu80/Knights-Tour-Java" target="_blank" rel="noopener noreferrer"
-                        class="px-4 py-2 rounded-xl bg-gray-300 text-gray-900 dark:bg-slate-700 dark:text-white hover:bg-accent-color hover:text-white dark:hover:bg-accent-color transition-colors font-bold text-sm flex items-center gap-2">
-                        <i class="fab fa-github"></i> View Source
-                    </a>
-                </div>
-            </header>
-
-            <div class="flex-1 flex flex-col lg:flex-row gap-8 items-center lg:items-start">
-                <div class="flex-1 w-full flex justify-center">
-                    <div id="chessboard" class="board rounded-lg overflow-hidden shadow-xl cursor-pointer"></div>
-                </div>
-
-                <aside class="w-full lg:w-80 flex flex-col gap-4">
-                    <div class="p-6 rounded-xl bg-card border border-theme">
-                        <h2 class="text-xl font-bold mb-4 border-b-0">Controls</h2>
-                        <div class="flex flex-col gap-3">
-                            <button id="btn-start"
-                                class="w-full py-3 rounded-lg bg-[#22d3ee] text-gray-900 font-bold hover:bg-accent-hover transition-colors flex items-center justify-center gap-2">
-                                <i class="fas fa-play"></i> Start Tour
-                            </button>
-                            <button id="btn-reset"
-                                class="w-full py-2 rounded-lg bg-red-500 text-white font-bold hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
-                                <i class="fas fa-undo"></i> Reset
-                            </button>
-                        </div>
-                        <p class="text-xs text-center text-light-secondary dark:text-dark-secondary mt-3">
-                            Click any square to set start position!
-                        </p>
-                    </div>
-
-                    <div class="p-6 rounded-xl bg-card border border-theme">
-                        <h2 class="text-xl font-bold mb-4 border-b-0">Settings</h2>
-                        <div class="space-y-4">
-                            <div>
-                                <label
-                                    class="block text-sm font-bold text-light-secondary dark:text-dark-secondary mb-1">Animation
-                                    Speed</label>
-                                <!-- Value 1 = Slow (500ms), Value 100 = Fast (10ms) -->
-                                <input type="range" id="speed-slider" min="1" max="100" value="50"
-                                    class="w-full accent-accent-color">
-                                <div
-                                    class="flex justify-between text-xs text-light-secondary dark:text-dark-secondary mt-1">
-                                    <span>Slower</span>
-                                    <span>Faster</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center border-t border-theme pt-4">
-                                <span
-                                    class="text-sm font-bold text-light-secondary dark:text-dark-secondary">Moves:</span>
-                                <span id="move-count" class="text-2xl font-black text-accent-color">0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span
-                                    class="text-sm font-bold text-light-secondary dark:text-dark-secondary">Status:</span>
-                                <span id="status-text"
-                                    class="text-sm font-bold text-light-primary dark:text-dark-primary">Ready</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-xl bg-card border border-theme flex-1">
-                        <h2 class="text-xl font-bold mb-2 border-b-0">About</h2>
-                        <p class="text-sm text-light-secondary dark:text-dark-secondary leading-relaxed">
-                            The Knight's Tour is a sequence of moves of a knight on a chessboard such that the knight
-                            visits every square exactly once.
-                        </p>
-                        <p class="text-sm text-light-secondary dark:text-dark-secondary leading-relaxed mt-2">
-                            This demo uses Warnsdorff's rule, a heuristic that chooses the move with the fewest onward
-                            moves, to find a solution efficiently.
-                        </p>
-                    </div>
-                </aside>
+        <div class="layout-split">
+            <div class="panel">
+                <div id="chessboard" class="board" aria-label="Chessboard"></div>
             </div>
+
+            <aside class="stack">
+                <div class="panel">
+                    <h2>Controls</h2>
+                    <div class="btn-row">
+                        <button type="button" id="btn-start" class="button">Start tour</button>
+                        <button type="button" id="btn-reset" class="button button-danger">Reset</button>
+                    </div>
+                    <p class="hint">Click any square to set the starting position.</p>
+                </div>
+
+                <div class="panel">
+                    <h2>Settings</h2>
+                    <div class="field">
+                        <label for="speed-slider">Animation speed</label>
+                        <input type="range" id="speed-slider" min="1" max="100" value="50">
+                        <div class="range-labels">
+                            <span>Slower</span>
+                            <span>Faster</span>
+                        </div>
+                    </div>
+                    <div class="stat-row">
+                        <span>Moves</span>
+                        <strong id="move-count">0</strong>
+                    </div>
+                    <div class="stat-row" style="margin-top: 0.5rem;">
+                        <span>Status</span>
+                        <span id="status-text">Ready</span>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>About</h2>
+                    <p class="muted" style="margin: 0; font-size: 0.92rem;">
+                        A knight's tour is a sequence of knight moves that visits every square exactly once.
+                        This demo uses Warnsdorff's rule: always move to the square with the fewest onward options.
+                    </p>
+                </div>
+            </aside>
         </div>
     </div>
 
-    <button id="theme-toggle"
-        class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-card shadow-lg flex items-center justify-center text-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color border border-theme transition-transform duration-300 hover:scale-110 z-50">
-        <i id="theme-icon-light" class="fas fa-sun text-yellow-500"></i>
-        <i id="theme-icon-dark" class="fas fa-moon text-blue-300 hidden"></i>
-    </button>
-
-    <script src="../script.js"></script>
     <script>
         const boardEl = document.getElementById('chessboard');
         const btnStart = document.getElementById('btn-start');
@@ -207,19 +188,36 @@
         const statusText = document.getElementById('status-text');
 
         const N = 8;
+        const KNIGHT = '<span class="knight-glyph" aria-hidden="true">♘</span>';
         let board = [];
-        let moves = 0;
         let isRunning = false;
         let isPaused = false;
-        let delay = 100;
         let path = [];
-        let startPos = { x: 0, y: 0 }; // Default start
+        let startPos = { x: 0, y: 0 };
         let retryCount = 0;
+        let runToken = 0;
         const MAX_RETRIES = 10;
 
-        // Knight's moves
         const dx = [2, 1, -1, -2, -2, -1, 1, 2];
         const dy = [1, 2, 2, 1, -1, -2, -2, -1];
+
+        function setStatus(text, cls) {
+            statusText.textContent = text;
+            statusText.className = cls || '';
+        }
+
+        function setStartButton(mode) {
+            btnStart.classList.remove('button-warn', 'button-ghost');
+            if (mode === 'pause') {
+                btnStart.textContent = 'Pause';
+                btnStart.classList.add('button-warn');
+            } else if (mode === 'resume') {
+                btnStart.textContent = 'Resume';
+                btnStart.classList.add('button-warn');
+            } else {
+                btnStart.textContent = 'Start tour';
+            }
+        }
 
         function initBoard() {
             boardEl.innerHTML = '';
@@ -230,28 +228,21 @@
                     const cell = document.createElement('div');
                     cell.className = `cell ${(i + j) % 2 === 0 ? 'white' : 'black'}`;
                     cell.id = `cell-${i}-${j}`;
-
-                    // Click handler for setting start position
+                    cell.setAttribute('role', 'button');
+                    cell.setAttribute('aria-label', `Square ${i + 1}, ${j + 1}`);
                     cell.addEventListener('click', () => {
-                        if (!isRunning) {
-                            setStartPosition(i, j);
-                        }
+                        if (!isRunning) setStartPosition(i, j);
                     });
-
                     boardEl.appendChild(cell);
                 }
             }
-            moves = 0;
-            moveCountEl.textContent = 0;
-            statusText.textContent = 'Ready';
-            statusText.className = 'text-sm font-bold text-light-primary dark:text-dark-primary';
 
-            // Set initial knight
+            moveCountEl.textContent = '0';
+            setStatus('Ready');
             setStartPosition(startPos.x, startPos.y);
         }
 
         function setStartPosition(x, y) {
-            // Clear previous
             document.querySelectorAll('.cell').forEach(c => {
                 c.innerHTML = '';
                 c.classList.remove('current', 'visited');
@@ -260,11 +251,11 @@
             startPos = { x, y };
             const cell = document.getElementById(`cell-${x}-${y}`);
             cell.classList.add('current');
-            cell.innerHTML = '<i class="fas fa-chess-knight knight-icon"></i>';
+            cell.innerHTML = KNIGHT;
         }
 
         function isValid(x, y) {
-            return (x >= 0 && x < N && y >= 0 && y < N && board[x][y] === -1);
+            return x >= 0 && x < N && y >= 0 && y < N && board[x][y] === -1;
         }
 
         function getDegree(x, y) {
@@ -276,27 +267,26 @@
         }
 
         function solveKnightsTour() {
-            // Warnsdorff's algorithm
             let x = startPos.x;
             let y = startPos.y;
 
-            // Reset board logic
             board = Array(N).fill().map(() => Array(N).fill(-1));
             path = [{ x, y }];
             board[x][y] = 0;
 
             for (let i = 0; i < N * N - 1; i++) {
                 let minDeg = 9;
-                let nextX = -1, nextY = -1;
-                let start = Math.floor(Math.random() * 8);
+                let nextX = -1;
+                let nextY = -1;
+                const start = Math.floor(Math.random() * 8);
 
                 for (let count = 0; count < 8; count++) {
-                    let idx = (start + count) % 8;
-                    let nx = x + dx[idx];
-                    let ny = y + dy[idx];
+                    const idx = (start + count) % 8;
+                    const nx = x + dx[idx];
+                    const ny = y + dy[idx];
 
                     if (isValid(nx, ny)) {
-                        let deg = getDegree(nx, ny);
+                        const deg = getDegree(nx, ny);
                         if (deg < minDeg) {
                             minDeg = deg;
                             nextX = nx;
@@ -305,7 +295,7 @@
                     }
                 }
 
-                if (nextX === -1) return false; // Failed
+                if (nextX === -1) return false;
 
                 board[nextX][nextY] = i + 1;
                 path.push({ x: nextX, y: nextY });
@@ -315,25 +305,26 @@
             return true;
         }
 
+        function sleep(ms, token) {
+            return new Promise(resolve => {
+                setTimeout(() => resolve(token === runToken), ms);
+            });
+        }
+
         async function animateTour() {
+            const token = ++runToken;
             isRunning = true;
             isPaused = false;
-            btnStart.innerHTML = '<i class="fas fa-pause"></i> Pause';
-            btnStart.classList.remove('bg-[#22d3ee]', 'hover:bg-accent-hover', 'text-gray-900');
-            btnStart.classList.add('bg-yellow-500', 'hover:bg-yellow-600', 'text-white');
+            setStartButton('pause');
+            setStatus('Running…', 'is-running');
 
-            statusText.textContent = 'Running...';
-            statusText.className = 'text-sm font-bold text-accent-color';
-
-            // Clear board visually but keep start
             document.querySelectorAll('.cell').forEach(c => {
                 c.classList.remove('visited', 'current');
                 c.innerHTML = '';
             });
 
-            // Find a solution first (instant)
             let solved = false;
-            for (let i = 0; i < 50; i++) { // Increased retries
+            for (let i = 0; i < 50; i++) {
                 if (solveKnightsTour()) {
                     solved = true;
                     break;
@@ -343,69 +334,67 @@
             if (!solved) {
                 retryCount++;
                 if (retryCount > MAX_RETRIES) {
-                    statusText.textContent = 'No solution found. Try a different start.';
-                    statusText.className = 'text-sm font-bold text-red-500';
-                    btnStart.innerHTML = '<i class="fas fa-play"></i> Start Tour';
-                    btnStart.classList.add('bg-[#22d3ee]', 'hover:bg-accent-hover', 'text-gray-900');
-                    btnStart.classList.remove('bg-yellow-500', 'hover:bg-yellow-600', 'text-white');
+                    setStatus('No solution found. Try a different start.', 'is-error');
+                    setStartButton('start');
                     isRunning = false;
                     retryCount = 0;
+                    setStartPosition(startPos.x, startPos.y);
                     return;
                 }
-                statusText.textContent = `Retrying... (${retryCount}/${MAX_RETRIES})`;
-                setTimeout(animateTour, 100);
+                setStatus(`Retrying… (${retryCount}/${MAX_RETRIES})`, 'is-running');
+                const stillActive = await sleep(100, token);
+                if (!stillActive || token !== runToken) return;
+                animateTour();
                 return;
             }
             retryCount = 0;
 
-            // Animate the path
             for (let i = 0; i < path.length; i++) {
-                if (!isRunning) break;
+                if (token !== runToken || !isRunning) break;
 
                 const { x, y } = path[i];
                 const cell = document.getElementById(`cell-${x}-${y}`);
 
-                // Remove knight from previous
-                const prevKnight = document.querySelector('.knight-icon');
+                const prevKnight = document.querySelector('.knight-glyph');
                 if (prevKnight) prevKnight.remove();
 
-                // Mark previous as visited
                 if (i > 0) {
                     const prev = path[i - 1];
                     const prevCell = document.getElementById(`cell-${prev.x}-${prev.y}`);
                     prevCell.classList.remove('current');
                     prevCell.classList.add('visited');
-                    prevCell.textContent = i;
+                    prevCell.textContent = String(i);
                 }
 
-                // Mark current
                 cell.classList.add('current');
-                cell.innerHTML = '<i class="fas fa-chess-knight knight-icon"></i>';
+                cell.innerHTML = KNIGHT;
+                moveCountEl.textContent = String(i + 1);
 
-                moveCountEl.textContent = i + 1;
+                const speedVal = parseInt(speedSlider.value, 10);
+                const delay = 500 - ((speedVal - 1) * (490 / 99));
 
-                // Calculate delay from slider (1-100) -> (500-10)
-                // High speed (100) -> Low delay (10)
-                // Low speed (1) -> High delay (500)
-                const speedVal = parseInt(speedSlider.value);
-                // Map 1..100 to 500..10
-                delay = 500 - ((speedVal - 1) * (490 / 99));
+                const stillActive = await sleep(delay, token);
+                if (!stillActive || token !== runToken) break;
 
-                await new Promise(r => setTimeout(r, delay));
-
-                while (isPaused) {
-                    if (!isRunning) break;
-                    await new Promise(r => setTimeout(r, 100));
+                while (isPaused && isRunning && token === runToken) {
+                    const pausedActive = await sleep(100, token);
+                    if (!pausedActive || token !== runToken) break;
                 }
             }
 
-            if (isRunning) {
-                statusText.textContent = 'Completed!';
-                statusText.className = 'text-sm font-bold text-green-500';
-                btnStart.innerHTML = '<i class="fas fa-play"></i> Start Tour';
-                btnStart.classList.add('bg-[#22d3ee]', 'hover:bg-accent-hover', 'text-gray-900');
-                btnStart.classList.remove('bg-yellow-500', 'hover:bg-yellow-600', 'text-white');
+            if (token === runToken && isRunning) {
+                // Mark the final square visited with its move number
+                const last = path[path.length - 1];
+                if (last) {
+                    const lastCell = document.getElementById(`cell-${last.x}-${last.y}`);
+                    lastCell.classList.remove('current');
+                    lastCell.classList.add('visited');
+                    lastCell.textContent = String(path.length);
+                }
+                setStatus('Completed!', 'is-done');
+                setStartButton('start');
                 isRunning = false;
+                isPaused = false;
             }
         }
 
@@ -415,27 +404,24 @@
             } else {
                 isPaused = !isPaused;
                 if (isPaused) {
-                    btnStart.innerHTML = '<i class="fas fa-play"></i> Resume';
-                    statusText.textContent = 'Paused';
-                    statusText.className = 'text-sm font-bold text-yellow-500';
+                    setStartButton('resume');
+                    setStatus('Paused', 'is-paused');
                 } else {
-                    btnStart.innerHTML = '<i class="fas fa-pause"></i> Pause';
-                    statusText.textContent = 'Running...';
-                    statusText.className = 'text-sm font-bold text-accent-color';
+                    setStartButton('pause');
+                    setStatus('Running…', 'is-running');
                 }
             }
         });
 
         btnReset.addEventListener('click', () => {
+            runToken++;
             isRunning = false;
             isPaused = false;
-            btnStart.innerHTML = '<i class="fas fa-play"></i> Start Tour';
-            btnStart.classList.add('bg-[#22d3ee]', 'hover:bg-accent-hover', 'text-gray-900');
-            btnStart.classList.remove('bg-yellow-500', 'hover:bg-yellow-600', 'text-white');
+            retryCount = 0;
+            setStartButton('start');
             initBoard();
         });
 
-        // Init
         initBoard();
     </script>
 </body>

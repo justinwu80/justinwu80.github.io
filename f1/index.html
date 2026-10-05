@@ -3,24 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D F1 Race Replay</title>
-    <meta name="description" content="Watch historical F1 races replayed in 3D with real FastF1 telemetry data." />
+    <title>Apex · 3D F1 Race Replay | Justin Wu</title>
+    <meta name="description" content="Apex — interactive 3D Formula 1 race replay with FastF1 telemetry, Kalman-smoothed paths, and TV camera modes." />
+    <link rel="icon" type="image/jpeg" href="../galaxy.jpeg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script type="module" crossorigin src="./assets/index-oRgF-m0b.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DxN6nIHo.css">
+    <link rel="stylesheet" href="./apex-chrome.css">
   </head>
   <body>
     <div id="app">
+      <a class="portfolio-back" href="../">← Justin Wu · Portfolio</a>
       <canvas id="scene"></canvas>
       <aside class="control-panel">
         <header class="event-header">
           <div>
-            <p class="eyebrow">FastF1 telemetry replay</p>
-            <h1>2021 British Grand Prix</h1>
+            <p class="eyebrow">Apex · FastF1 telemetry</p>
+            <h1>3D F1 Race Replay</h1>
           </div>
-          <div class="status-pill" id="dataStatus">sample cache</div>
+          <div class="status-pill" id="dataStatus">loading</div>
         </header>
+        <p class="pipeline-note">Kalman-smoothed paths · Catmull-Rom interpolation · 0.5x–64x playback</p>
 
         <div id="weatherWidget" class="weather-widget">
           <div class="weather-main"><span class="weather-icon">⛅</span><span class="weather-label">Loading…</span></div>
