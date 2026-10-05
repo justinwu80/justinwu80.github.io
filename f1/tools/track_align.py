@@ -23,7 +23,7 @@ import numpy as np
 
 SCENE_EXTENT = 720.0
 ROAD_SCALE = 2.4  # K0() draws asphalt at track.width * 2.4
-CAR_HALF_WIDTH = 1.4
+CAR_HALF_WIDTH = 1.6
 
 
 class Track:
@@ -245,6 +245,17 @@ def bridge_dropouts(track: Track, raw, t, frozen, t_pos, s_pos, d_pos, v_pos):
     return t_all, s_all, d_all, v_all
 
 
+def run_length(values) -> list[int]:
+    """[value, count, value, count, ...]"""
+    out: list[int] = []
+    for v in np.asarray(values).astype(int).tolist():
+        if out and out[-2] == v:
+            out[-1] += 1
+        else:
+            out += [v, 1]
+    return out
+
+
 def lerp_series(t_src, values, t_dst):
     return np.interp(t_dst, t_src, values)
 
@@ -309,40 +320,29 @@ def align_race(race: dict, hz: float, rebuild_centerline: bool) -> tuple[dict, d
         else:
             s_sm = rts_constant_velocity(t_pos, s_raw, np.gradient(s_raw, t_pos), r=6.0, r_v=1e4, q=300.0)
         s_sm = np.maximum.accumulate(s_sm)
-        d_sm = rts_random_walk(t_pos, np.clip(d_raw, -max_lat * 1.5, max_lat * 1.5), r=4.0, q=0.6)
+        if s_sm[0] > track.length / 2:
+            # Grid slots behind the start line belong to lap 0, not to the end of lap 1.
+            s_sm -= track.length
+        d_sm = rts_random_walk(t_pos, np.clip(d_raw, -max_lat * 1.5, max_lat * 1.5), r=4.0, q=0.3)
         d_sm = np.clip(d_sm, -max_lat, max_lat)
 
-        grid = np.arange(t[0], t[-1] + 1e-9, 1.0 / hz)
-        if t[-1] - grid[-1] > 0.05:
-            grid = np.append(grid, t[-1])
+        grid = t[0] + np.arange(int(np.floor((t[-1] - t[0]) * hz)) + 1) / hz
         gs = lerp_series(t_pos, s_sm, grid)
         gd = lerp_series(t_pos, d_sm, grid)
-        pos = track.point(gs, gd)
         laps = step_series(t, [int(s.get("lap", 1) or 1) for s in raw], grid)
-        positions = step_series(t, [float(s.get("position", 0.0) or 0.0) for s in raw], grid)
-        speed = lerp_series(t, cols["speed"], grid)
-        throttle = lerp_series(t, cols["throttle"], grid)
-        brake = lerp_series(t, cols["brake"], grid)
-        distance = lerp_series(t, cols["distance"], grid)
-        rel = lerp_series(t, cols["relativeDistance"], grid)
-
-        samples = []
-        for k in range(len(grid)):
-            samples.append({
-                "t": round(float(grid[k]), 2),
-                "lap": int(laps[k]),
-                "position": float(positions[k]),
-                "x": round(float(pos[k, 0]), 2),
-                "y": round(float(pos[k, 1]), 2),
-                "s": round(float(gs[k]), 2),
-                "d": round(float(gd[k]), 2),
-                "speed": round(float(max(0.0, speed[k])), 1),
-                "throttle": round(float(np.clip(throttle[k], 0, 1)), 2),
-                "brake": round(float(np.clip(brake[k], 0, 1)), 2),
-                "distance": round(float(distance[k]), 1),
-                "relativeDistance": round(float(rel[k]), 4),
-            })
-        drivers_out.append({k: v for k, v in drv.items() if k != "samples"} | {"samples": samples})
+        positions = step_series(t, [int(s.get("position", 0) or 0) for s in raw], grid)
+        s10 = np.round(gs * 10).astype(np.int64)
+        drivers_out.append({k: v for k, v in drv.items() if k != "samples"} | {
+            "t0": round(float(grid[0]), 2),
+            "s0": int(s10[0]),
+            "ds": np.diff(s10).tolist(),
+            "d": np.round(gd * 100).astype(int).tolist(),
+            "v": np.round(np.maximum(0.0, lerp_series(t, cols["speed"], grid))).astype(int).tolist(),
+            "thr": np.round(np.clip(lerp_series(t, cols["throttle"], grid), 0, 1) * 100).astype(int).tolist(),
+            "brk": np.round(np.clip(lerp_series(t, cols["brake"], grid), 0, 1) * 100).astype(int).tolist(),
+            "lap": run_length(laps),
+            "pos": run_length(positions),
+        })
     out = {
         "event": race["event"],
         "track": {
@@ -352,6 +352,8 @@ def align_race(race: dict, hz: float, rebuild_centerline: bool) -> tuple[dict, d
             **({"metersPerUnit": round(mpu, 4)} if mpu else {}),
         },
         "drivers": drivers_out,
+        "format": "apex-columnar-1",
+        "sampleHz": hz,
         "processing": {
             "trackAligned": True,
             "smoother": "rts-kalman",

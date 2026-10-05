@@ -61,7 +61,11 @@ def export_session(year: int, round_number: int, out_dir: Path, hz: float = 1.0)
         print("  no laps")
         return None
 
-    ref_tel = laps.pick_fastest().get_telemetry()
+    ref = laps.pick_fastest()
+    if ref is None:
+        # Races with no timed laps (e.g. 2021 Belgium behind the safety car): trace the longest lap.
+        ref = laps.loc[laps["LapTime"].idxmax()] if laps["LapTime"].notna().any() else laps.iloc[1]
+    ref_tel = ref.get_telemetry()
     centerline = ref_tel[["X", "Y"]].to_numpy(dtype=float)
     centerline = centerline[np.isfinite(centerline).all(1)]
 
@@ -148,48 +152,62 @@ def export_session(year: int, round_number: int, out_dir: Path, hz: float = 1.0)
     }
 
 
+def is_current(path: Path) -> bool:
+    try:
+        with gzip.open(path, "rt") as f:
+            return '"format":"apex-columnar-1"' in f.read()
+    except (OSError, EOFError):
+        return False
+
+
+def write_catalog(out_dir: Path, catalog_path: Path) -> int:
+    races = []
+    for path in sorted(out_dir.glob("*.json.gz")):
+        with gzip.open(path, "rt") as f:
+            event = json.load(f).get("event", {})
+        races.append({
+            "id": path.name.removesuffix(".json.gz"),
+            "label": f"{event.get('year', '')} {str(event.get('name', path.stem)).replace('Grand Prix', 'GP')}".strip(),
+            "year": event.get("year"),
+            "url": f"data/races/{path.name}",
+        })
+    sample = {"id": "sample-silverstone", "label": "Silverstone (demo)", "sample": "silverstone"}
+    catalog_path.write_text(json.dumps({"races": [sample] + races}, indent=2) + "\n")
+    return len(races)
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--years", nargs="+", type=int, default=[2024])
+    parser.add_argument("--years", nargs="+", type=int, default=[2020, 2021, 2022, 2023, 2024])
     parser.add_argument("--rounds", nargs="+", type=int, default=None)
     parser.add_argument("--hz", type=float, default=1.0)
-    parser.add_argument("--force", action="store_true", help="Re-export packs that already exist")
+    parser.add_argument("--force", action="store_true", help="Re-export packs that are already current")
+    parser.add_argument("--catalog-only", action="store_true")
     args = parser.parse_args()
-
-    cache = Path("f1/.fastf1-cache")
-    cache.mkdir(parents=True, exist_ok=True)
-    fastf1.Cache.enable_cache(str(cache))
-    fastf1.set_log_level("ERROR")
 
     out_dir = Path("f1/data/races")
     out_dir.mkdir(parents=True, exist_ok=True)
     catalog_path = Path("f1/data/races.json")
-    catalog = json.loads(catalog_path.read_text())
-    by_id = {r["id"]: r for r in catalog["races"]}
-
-    for year in args.years:
-        schedule = fastf1.get_event_schedule(year, include_testing=False)
-        rounds = args.rounds or [int(r) for r in schedule["RoundNumber"].tolist() if int(r) > 0]
-        for rnd in rounds:
-            event_name = str(schedule.loc[schedule["RoundNumber"] == rnd].iloc[0]["EventName"])
-            slug = slugify(event_name.replace("Grand Prix", "").strip())
-            race_id = f"{year}-{rnd:02d}-{slug}"
-            if (out_dir / f"{race_id}.json.gz").exists() and not args.force:
-                print(f"Skipping existing {race_id}")
-                continue
-            try:
-                entry = export_session(year, rnd, out_dir, hz=args.hz)
-            except Exception as e:
-                print(f"  failed {race_id}: {e}")
-                continue
-            if entry:
-                by_id[entry["id"]] = entry
-
-    sample = [r for r in by_id.values() if r.get("sample")]
-    real = sorted((r for r in by_id.values() if not r.get("sample")), key=lambda r: r["id"])
-    catalog["races"] = sample + real
-    catalog_path.write_text(json.dumps(catalog, indent=2) + "\n")
-    print(f"Catalog now {len(catalog['races'])} entries.")
+    if not args.catalog_only:
+        cache = Path("f1/.fastf1-cache")
+        cache.mkdir(parents=True, exist_ok=True)
+        fastf1.Cache.enable_cache(str(cache))
+        fastf1.set_log_level("ERROR")
+        for year in args.years:
+            schedule = fastf1.get_event_schedule(year, include_testing=False)
+            rounds = args.rounds or [int(r) for r in schedule["RoundNumber"].tolist() if int(r) > 0]
+            for rnd in rounds:
+                event_name = str(schedule.loc[schedule["RoundNumber"] == rnd].iloc[0]["EventName"])
+                slug = slugify(event_name.replace("Grand Prix", "").strip())
+                path = out_dir / f"{year}-{rnd:02d}-{slug}.json.gz"
+                if path.exists() and is_current(path) and not args.force:
+                    print(f"Skipping current {path.name}")
+                    continue
+                try:
+                    export_session(year, rnd, out_dir, hz=args.hz)
+                except Exception as e:
+                    print(f"  failed {path.name}: {e}", flush=True)
+    print(f"Catalog now {write_catalog(out_dir, catalog_path)} races.")
 
 
 if __name__ == "__main__":
