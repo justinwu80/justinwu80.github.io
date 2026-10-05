@@ -16,6 +16,31 @@
       "url": "data/races/2024-02-saudi-arabian.json.gz"
     },
     {
+      "id": "2024-03-australian",
+      "label": "2024 Australian GP",
+      "url": "data/races/2024-03-australian.json.gz"
+    },
+    {
+      "id": "2024-04-japanese",
+      "label": "2024 Japanese GP",
+      "url": "data/races/2024-04-japanese.json.gz"
+    },
+    {
+      "id": "2024-05-chinese",
+      "label": "2024 Chinese GP",
+      "url": "data/races/2024-05-chinese.json.gz"
+    },
+    {
+      "id": "2024-06-miami",
+      "label": "2024 Miami GP",
+      "url": "data/races/2024-06-miami.json.gz"
+    },
+    {
+      "id": "2024-07-emilia-romagna",
+      "label": "2024 Emilia Romagna GP",
+      "url": "data/races/2024-07-emilia-romagna.json.gz"
+    },
+    {
       "id": "2025-01-australia",
       "label": "2025 Australia GP",
       "url": "data/races/2025-01-australia.json.gz"

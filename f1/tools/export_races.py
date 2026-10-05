@@ -215,7 +215,26 @@ def main():
         for rnd in schedule["RoundNumber"].tolist():
             if int(rnd) <= 0:
                 continue
-            # skip if similar already exists for 2025 full-res
+            # Skip rounds that already have an exported pack on disk.
+            schedule_row = schedule.loc[schedule["RoundNumber"] == int(rnd)]
+            if schedule_row.empty:
+                continue
+            event_name = str(schedule_row.iloc[0]["EventName"])
+            slug = slugify(event_name.replace("Grand Prix", "").strip() or str(schedule_row.iloc[0].get("Location", "")))
+            race_id = f"{year}-{int(rnd):02d}-{slug}"
+            out_path = out_dir / f"{race_id}.json.gz"
+            if out_path.exists() or race_id in existing_ids:
+                print(f"Skipping existing {race_id}")
+                if race_id not in existing_ids:
+                    entry = {
+                        "id": race_id,
+                        "label": f"{year} {event_name.replace('Grand Prix', 'GP').strip()}",
+                        "url": f"data/races/{out_path.name}",
+                    }
+                    catalog["races"].append(entry)
+                    existing_ids.add(race_id)
+                continue
+
             tentative = None
             try:
                 tentative = export_session(year, int(rnd), out_dir, hz=args.hz)
@@ -223,9 +242,6 @@ def main():
                 print("  failed", e)
                 continue
             if not tentative:
-                continue
-            if tentative["id"] in existing_ids:
-                print("  already in catalog")
                 continue
             catalog["races"].append(tentative)
             existing_ids.add(tentative["id"])
