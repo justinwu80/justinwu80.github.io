@@ -6,178 +6,789 @@
       "sample": "silverstone"
     },
     {
-      "id": "2021-10-britain-full",
+      "id": "2020-01-austrian",
+      "label": "2020 Austrian GP",
+      "year": 2020,
+      "url": "data/races/2020-01-austrian.json.gz"
+    },
+    {
+      "id": "2020-02-styrian",
+      "label": "2020 Styrian GP",
+      "year": 2020,
+      "url": "data/races/2020-02-styrian.json.gz"
+    },
+    {
+      "id": "2020-03-hungarian",
+      "label": "2020 Hungarian GP",
+      "year": 2020,
+      "url": "data/races/2020-03-hungarian.json.gz"
+    },
+    {
+      "id": "2020-04-british",
+      "label": "2020 British GP",
+      "year": 2020,
+      "url": "data/races/2020-04-british.json.gz"
+    },
+    {
+      "id": "2020-05-70th-anniversary",
+      "label": "2020 70th Anniversary GP",
+      "year": 2020,
+      "url": "data/races/2020-05-70th-anniversary.json.gz"
+    },
+    {
+      "id": "2020-06-spanish",
+      "label": "2020 Spanish GP",
+      "year": 2020,
+      "url": "data/races/2020-06-spanish.json.gz"
+    },
+    {
+      "id": "2020-07-belgian",
+      "label": "2020 Belgian GP",
+      "year": 2020,
+      "url": "data/races/2020-07-belgian.json.gz"
+    },
+    {
+      "id": "2020-08-italian",
+      "label": "2020 Italian GP",
+      "year": 2020,
+      "url": "data/races/2020-08-italian.json.gz"
+    },
+    {
+      "id": "2020-09-tuscan",
+      "label": "2020 Tuscan GP",
+      "year": 2020,
+      "url": "data/races/2020-09-tuscan.json.gz"
+    },
+    {
+      "id": "2020-10-russian",
+      "label": "2020 Russian GP",
+      "year": 2020,
+      "url": "data/races/2020-10-russian.json.gz"
+    },
+    {
+      "id": "2020-11-eifel",
+      "label": "2020 Eifel GP",
+      "year": 2020,
+      "url": "data/races/2020-11-eifel.json.gz"
+    },
+    {
+      "id": "2020-12-portuguese",
+      "label": "2020 Portuguese GP",
+      "year": 2020,
+      "url": "data/races/2020-12-portuguese.json.gz"
+    },
+    {
+      "id": "2020-13-emilia-romagna",
+      "label": "2020 Emilia Romagna GP",
+      "year": 2020,
+      "url": "data/races/2020-13-emilia-romagna.json.gz"
+    },
+    {
+      "id": "2020-14-turkish",
+      "label": "2020 Turkish GP",
+      "year": 2020,
+      "url": "data/races/2020-14-turkish.json.gz"
+    },
+    {
+      "id": "2020-15-bahrain",
+      "label": "2020 Bahrain GP",
+      "year": 2020,
+      "url": "data/races/2020-15-bahrain.json.gz"
+    },
+    {
+      "id": "2020-16-sakhir",
+      "label": "2020 Sakhir GP",
+      "year": 2020,
+      "url": "data/races/2020-16-sakhir.json.gz"
+    },
+    {
+      "id": "2020-17-abu-dhabi",
+      "label": "2020 Abu Dhabi GP",
+      "year": 2020,
+      "url": "data/races/2020-17-abu-dhabi.json.gz"
+    },
+    {
+      "id": "2021-01-bahrain",
+      "label": "2021 Bahrain GP",
+      "year": 2021,
+      "url": "data/races/2021-01-bahrain.json.gz"
+    },
+    {
+      "id": "2021-02-emilia-romagna",
+      "label": "2021 Emilia Romagna GP",
+      "year": 2021,
+      "url": "data/races/2021-02-emilia-romagna.json.gz"
+    },
+    {
+      "id": "2021-03-portuguese",
+      "label": "2021 Portuguese GP",
+      "year": 2021,
+      "url": "data/races/2021-03-portuguese.json.gz"
+    },
+    {
+      "id": "2021-04-spanish",
+      "label": "2021 Spanish GP",
+      "year": 2021,
+      "url": "data/races/2021-04-spanish.json.gz"
+    },
+    {
+      "id": "2021-05-monaco",
+      "label": "2021 Monaco GP",
+      "year": 2021,
+      "url": "data/races/2021-05-monaco.json.gz"
+    },
+    {
+      "id": "2021-06-azerbaijan",
+      "label": "2021 Azerbaijan GP",
+      "year": 2021,
+      "url": "data/races/2021-06-azerbaijan.json.gz"
+    },
+    {
+      "id": "2021-07-french",
+      "label": "2021 French GP",
+      "year": 2021,
+      "url": "data/races/2021-07-french.json.gz"
+    },
+    {
+      "id": "2021-08-styrian",
+      "label": "2021 Styrian GP",
+      "year": 2021,
+      "url": "data/races/2021-08-styrian.json.gz"
+    },
+    {
+      "id": "2021-09-austrian",
+      "label": "2021 Austrian GP",
+      "year": 2021,
+      "url": "data/races/2021-09-austrian.json.gz"
+    },
+    {
+      "id": "2021-10-british",
       "label": "2021 British GP",
-      "url": "data/race.json.gz"
+      "year": 2021,
+      "url": "data/races/2021-10-british.json.gz"
+    },
+    {
+      "id": "2021-11-hungarian",
+      "label": "2021 Hungarian GP",
+      "year": 2021,
+      "url": "data/races/2021-11-hungarian.json.gz"
+    },
+    {
+      "id": "2021-12-belgian",
+      "label": "2021 Belgian GP",
+      "year": 2021,
+      "url": "data/races/2021-12-belgian.json.gz"
+    },
+    {
+      "id": "2021-13-dutch",
+      "label": "2021 Dutch GP",
+      "year": 2021,
+      "url": "data/races/2021-13-dutch.json.gz"
+    },
+    {
+      "id": "2021-14-italian",
+      "label": "2021 Italian GP",
+      "year": 2021,
+      "url": "data/races/2021-14-italian.json.gz"
+    },
+    {
+      "id": "2021-15-russian",
+      "label": "2021 Russian GP",
+      "year": 2021,
+      "url": "data/races/2021-15-russian.json.gz"
+    },
+    {
+      "id": "2021-16-turkish",
+      "label": "2021 Turkish GP",
+      "year": 2021,
+      "url": "data/races/2021-16-turkish.json.gz"
+    },
+    {
+      "id": "2021-17-united-states",
+      "label": "2021 United States GP",
+      "year": 2021,
+      "url": "data/races/2021-17-united-states.json.gz"
+    },
+    {
+      "id": "2021-18-mexico-city",
+      "label": "2021 Mexico City GP",
+      "year": 2021,
+      "url": "data/races/2021-18-mexico-city.json.gz"
+    },
+    {
+      "id": "2021-19-s-o-paulo",
+      "label": "2021 S\u00e3o Paulo GP",
+      "year": 2021,
+      "url": "data/races/2021-19-s-o-paulo.json.gz"
+    },
+    {
+      "id": "2021-20-qatar",
+      "label": "2021 Qatar GP",
+      "year": 2021,
+      "url": "data/races/2021-20-qatar.json.gz"
+    },
+    {
+      "id": "2021-21-saudi-arabian",
+      "label": "2021 Saudi Arabian GP",
+      "year": 2021,
+      "url": "data/races/2021-21-saudi-arabian.json.gz"
+    },
+    {
+      "id": "2021-22-abu-dhabi",
+      "label": "2021 Abu Dhabi GP",
+      "year": 2021,
+      "url": "data/races/2021-22-abu-dhabi.json.gz"
+    },
+    {
+      "id": "2022-01-bahrain",
+      "label": "2022 Bahrain GP",
+      "year": 2022,
+      "url": "data/races/2022-01-bahrain.json.gz"
+    },
+    {
+      "id": "2022-02-saudi-arabian",
+      "label": "2022 Saudi Arabian GP",
+      "year": 2022,
+      "url": "data/races/2022-02-saudi-arabian.json.gz"
+    },
+    {
+      "id": "2022-03-australian",
+      "label": "2022 Australian GP",
+      "year": 2022,
+      "url": "data/races/2022-03-australian.json.gz"
+    },
+    {
+      "id": "2022-04-emilia-romagna",
+      "label": "2022 Emilia Romagna GP",
+      "year": 2022,
+      "url": "data/races/2022-04-emilia-romagna.json.gz"
+    },
+    {
+      "id": "2022-05-miami",
+      "label": "2022 Miami GP",
+      "year": 2022,
+      "url": "data/races/2022-05-miami.json.gz"
+    },
+    {
+      "id": "2022-06-spanish",
+      "label": "2022 Spanish GP",
+      "year": 2022,
+      "url": "data/races/2022-06-spanish.json.gz"
+    },
+    {
+      "id": "2022-07-monaco",
+      "label": "2022 Monaco GP",
+      "year": 2022,
+      "url": "data/races/2022-07-monaco.json.gz"
+    },
+    {
+      "id": "2022-08-azerbaijan",
+      "label": "2022 Azerbaijan GP",
+      "year": 2022,
+      "url": "data/races/2022-08-azerbaijan.json.gz"
+    },
+    {
+      "id": "2022-09-canadian",
+      "label": "2022 Canadian GP",
+      "year": 2022,
+      "url": "data/races/2022-09-canadian.json.gz"
+    },
+    {
+      "id": "2022-10-british",
+      "label": "2022 British GP",
+      "year": 2022,
+      "url": "data/races/2022-10-british.json.gz"
+    },
+    {
+      "id": "2022-11-austrian",
+      "label": "2022 Austrian GP",
+      "year": 2022,
+      "url": "data/races/2022-11-austrian.json.gz"
+    },
+    {
+      "id": "2022-12-french",
+      "label": "2022 French GP",
+      "year": 2022,
+      "url": "data/races/2022-12-french.json.gz"
+    },
+    {
+      "id": "2022-13-hungarian",
+      "label": "2022 Hungarian GP",
+      "year": 2022,
+      "url": "data/races/2022-13-hungarian.json.gz"
+    },
+    {
+      "id": "2022-14-belgian",
+      "label": "2022 Belgian GP",
+      "year": 2022,
+      "url": "data/races/2022-14-belgian.json.gz"
+    },
+    {
+      "id": "2022-15-dutch",
+      "label": "2022 Dutch GP",
+      "year": 2022,
+      "url": "data/races/2022-15-dutch.json.gz"
+    },
+    {
+      "id": "2022-16-italian",
+      "label": "2022 Italian GP",
+      "year": 2022,
+      "url": "data/races/2022-16-italian.json.gz"
+    },
+    {
+      "id": "2022-17-singapore",
+      "label": "2022 Singapore GP",
+      "year": 2022,
+      "url": "data/races/2022-17-singapore.json.gz"
+    },
+    {
+      "id": "2022-18-japanese",
+      "label": "2022 Japanese GP",
+      "year": 2022,
+      "url": "data/races/2022-18-japanese.json.gz"
+    },
+    {
+      "id": "2022-19-united-states",
+      "label": "2022 United States GP",
+      "year": 2022,
+      "url": "data/races/2022-19-united-states.json.gz"
+    },
+    {
+      "id": "2022-20-mexico-city",
+      "label": "2022 Mexico City GP",
+      "year": 2022,
+      "url": "data/races/2022-20-mexico-city.json.gz"
+    },
+    {
+      "id": "2022-21-s-o-paulo",
+      "label": "2022 S\u00e3o Paulo GP",
+      "year": 2022,
+      "url": "data/races/2022-21-s-o-paulo.json.gz"
+    },
+    {
+      "id": "2022-22-abu-dhabi",
+      "label": "2022 Abu Dhabi GP",
+      "year": 2022,
+      "url": "data/races/2022-22-abu-dhabi.json.gz"
+    },
+    {
+      "id": "2023-01-bahrain",
+      "label": "2023 Bahrain GP",
+      "year": 2023,
+      "url": "data/races/2023-01-bahrain.json.gz"
+    },
+    {
+      "id": "2023-02-saudi-arabian",
+      "label": "2023 Saudi Arabian GP",
+      "year": 2023,
+      "url": "data/races/2023-02-saudi-arabian.json.gz"
+    },
+    {
+      "id": "2023-03-australian",
+      "label": "2023 Australian GP",
+      "year": 2023,
+      "url": "data/races/2023-03-australian.json.gz"
+    },
+    {
+      "id": "2023-04-azerbaijan",
+      "label": "2023 Azerbaijan GP",
+      "year": 2023,
+      "url": "data/races/2023-04-azerbaijan.json.gz"
+    },
+    {
+      "id": "2023-05-miami",
+      "label": "2023 Miami GP",
+      "year": 2023,
+      "url": "data/races/2023-05-miami.json.gz"
+    },
+    {
+      "id": "2023-06-monaco",
+      "label": "2023 Monaco GP",
+      "year": 2023,
+      "url": "data/races/2023-06-monaco.json.gz"
+    },
+    {
+      "id": "2023-07-spanish",
+      "label": "2023 Spanish GP",
+      "year": 2023,
+      "url": "data/races/2023-07-spanish.json.gz"
+    },
+    {
+      "id": "2023-08-canadian",
+      "label": "2023 Canadian GP",
+      "year": 2023,
+      "url": "data/races/2023-08-canadian.json.gz"
+    },
+    {
+      "id": "2023-09-austrian",
+      "label": "2023 Austrian GP",
+      "year": 2023,
+      "url": "data/races/2023-09-austrian.json.gz"
+    },
+    {
+      "id": "2023-10-british",
+      "label": "2023 British GP",
+      "year": 2023,
+      "url": "data/races/2023-10-british.json.gz"
+    },
+    {
+      "id": "2023-11-hungarian",
+      "label": "2023 Hungarian GP",
+      "year": 2023,
+      "url": "data/races/2023-11-hungarian.json.gz"
+    },
+    {
+      "id": "2023-12-belgian",
+      "label": "2023 Belgian GP",
+      "year": 2023,
+      "url": "data/races/2023-12-belgian.json.gz"
+    },
+    {
+      "id": "2023-13-dutch",
+      "label": "2023 Dutch GP",
+      "year": 2023,
+      "url": "data/races/2023-13-dutch.json.gz"
+    },
+    {
+      "id": "2023-14-italian",
+      "label": "2023 Italian GP",
+      "year": 2023,
+      "url": "data/races/2023-14-italian.json.gz"
+    },
+    {
+      "id": "2023-15-singapore",
+      "label": "2023 Singapore GP",
+      "year": 2023,
+      "url": "data/races/2023-15-singapore.json.gz"
+    },
+    {
+      "id": "2023-16-japanese",
+      "label": "2023 Japanese GP",
+      "year": 2023,
+      "url": "data/races/2023-16-japanese.json.gz"
+    },
+    {
+      "id": "2023-17-qatar",
+      "label": "2023 Qatar GP",
+      "year": 2023,
+      "url": "data/races/2023-17-qatar.json.gz"
+    },
+    {
+      "id": "2023-18-united-states",
+      "label": "2023 United States GP",
+      "year": 2023,
+      "url": "data/races/2023-18-united-states.json.gz"
+    },
+    {
+      "id": "2023-19-mexico-city",
+      "label": "2023 Mexico City GP",
+      "year": 2023,
+      "url": "data/races/2023-19-mexico-city.json.gz"
+    },
+    {
+      "id": "2023-20-s-o-paulo",
+      "label": "2023 S\u00e3o Paulo GP",
+      "year": 2023,
+      "url": "data/races/2023-20-s-o-paulo.json.gz"
+    },
+    {
+      "id": "2023-21-las-vegas",
+      "label": "2023 Las Vegas GP",
+      "year": 2023,
+      "url": "data/races/2023-21-las-vegas.json.gz"
+    },
+    {
+      "id": "2023-22-abu-dhabi",
+      "label": "2023 Abu Dhabi GP",
+      "year": 2023,
+      "url": "data/races/2023-22-abu-dhabi.json.gz"
     },
     {
       "id": "2024-01-bahrain",
       "label": "2024 Bahrain GP",
+      "year": 2024,
       "url": "data/races/2024-01-bahrain.json.gz"
     },
     {
       "id": "2024-02-saudi-arabian",
       "label": "2024 Saudi Arabian GP",
+      "year": 2024,
       "url": "data/races/2024-02-saudi-arabian.json.gz"
     },
     {
       "id": "2024-03-australian",
       "label": "2024 Australian GP",
+      "year": 2024,
       "url": "data/races/2024-03-australian.json.gz"
     },
     {
       "id": "2024-04-japanese",
       "label": "2024 Japanese GP",
+      "year": 2024,
       "url": "data/races/2024-04-japanese.json.gz"
     },
     {
       "id": "2024-05-chinese",
       "label": "2024 Chinese GP",
+      "year": 2024,
       "url": "data/races/2024-05-chinese.json.gz"
     },
     {
       "id": "2024-06-miami",
       "label": "2024 Miami GP",
+      "year": 2024,
       "url": "data/races/2024-06-miami.json.gz"
     },
     {
       "id": "2024-07-emilia-romagna",
       "label": "2024 Emilia Romagna GP",
+      "year": 2024,
       "url": "data/races/2024-07-emilia-romagna.json.gz"
     },
     {
       "id": "2024-08-monaco",
       "label": "2024 Monaco GP",
+      "year": 2024,
       "url": "data/races/2024-08-monaco.json.gz"
     },
     {
       "id": "2024-09-canadian",
       "label": "2024 Canadian GP",
+      "year": 2024,
       "url": "data/races/2024-09-canadian.json.gz"
     },
     {
       "id": "2024-10-spanish",
       "label": "2024 Spanish GP",
+      "year": 2024,
       "url": "data/races/2024-10-spanish.json.gz"
     },
     {
+      "id": "2024-11-austrian",
+      "label": "2024 Austrian GP",
+      "year": 2024,
+      "url": "data/races/2024-11-austrian.json.gz"
+    },
+    {
+      "id": "2024-12-british",
+      "label": "2024 British GP",
+      "year": 2024,
+      "url": "data/races/2024-12-british.json.gz"
+    },
+    {
+      "id": "2024-13-hungarian",
+      "label": "2024 Hungarian GP",
+      "year": 2024,
+      "url": "data/races/2024-13-hungarian.json.gz"
+    },
+    {
+      "id": "2024-14-belgian",
+      "label": "2024 Belgian GP",
+      "year": 2024,
+      "url": "data/races/2024-14-belgian.json.gz"
+    },
+    {
+      "id": "2024-15-dutch",
+      "label": "2024 Dutch GP",
+      "year": 2024,
+      "url": "data/races/2024-15-dutch.json.gz"
+    },
+    {
+      "id": "2024-16-italian",
+      "label": "2024 Italian GP",
+      "year": 2024,
+      "url": "data/races/2024-16-italian.json.gz"
+    },
+    {
+      "id": "2024-17-azerbaijan",
+      "label": "2024 Azerbaijan GP",
+      "year": 2024,
+      "url": "data/races/2024-17-azerbaijan.json.gz"
+    },
+    {
+      "id": "2024-18-singapore",
+      "label": "2024 Singapore GP",
+      "year": 2024,
+      "url": "data/races/2024-18-singapore.json.gz"
+    },
+    {
+      "id": "2024-19-united-states",
+      "label": "2024 United States GP",
+      "year": 2024,
+      "url": "data/races/2024-19-united-states.json.gz"
+    },
+    {
+      "id": "2024-20-mexico-city",
+      "label": "2024 Mexico City GP",
+      "year": 2024,
+      "url": "data/races/2024-20-mexico-city.json.gz"
+    },
+    {
+      "id": "2024-21-s-o-paulo",
+      "label": "2024 S\u00e3o Paulo GP",
+      "year": 2024,
+      "url": "data/races/2024-21-s-o-paulo.json.gz"
+    },
+    {
+      "id": "2024-22-las-vegas",
+      "label": "2024 Las Vegas GP",
+      "year": 2024,
+      "url": "data/races/2024-22-las-vegas.json.gz"
+    },
+    {
+      "id": "2024-23-qatar",
+      "label": "2024 Qatar GP",
+      "year": 2024,
+      "url": "data/races/2024-23-qatar.json.gz"
+    },
+    {
+      "id": "2024-24-abu-dhabi",
+      "label": "2024 Abu Dhabi GP",
+      "year": 2024,
+      "url": "data/races/2024-24-abu-dhabi.json.gz"
+    },
+    {
       "id": "2025-01-australia",
-      "label": "2025 Australia GP",
+      "label": "2025 Australian GP",
+      "year": 2025,
       "url": "data/races/2025-01-australia.json.gz"
     },
     {
       "id": "2025-02-china",
-      "label": "2025 China GP",
+      "label": "2025 Chinese GP",
+      "year": 2025,
       "url": "data/races/2025-02-china.json.gz"
     },
     {
       "id": "2025-03-japan",
-      "label": "2025 Japan GP",
+      "label": "2025 Japanese GP",
+      "year": 2025,
       "url": "data/races/2025-03-japan.json.gz"
     },
     {
       "id": "2025-04-bahrain",
       "label": "2025 Bahrain GP",
+      "year": 2025,
       "url": "data/races/2025-04-bahrain.json.gz"
     },
     {
       "id": "2025-05-saudi",
-      "label": "2025 Saudi GP",
+      "label": "2025 Saudi Arabian GP",
+      "year": 2025,
       "url": "data/races/2025-05-saudi.json.gz"
     },
     {
       "id": "2025-06-miami",
       "label": "2025 Miami GP",
+      "year": 2025,
       "url": "data/races/2025-06-miami.json.gz"
     },
     {
       "id": "2025-07-emilia-romagna",
       "label": "2025 Emilia Romagna GP",
+      "year": 2025,
       "url": "data/races/2025-07-emilia-romagna.json.gz"
     },
     {
       "id": "2025-08-monaco",
       "label": "2025 Monaco GP",
+      "year": 2025,
       "url": "data/races/2025-08-monaco.json.gz"
     },
     {
       "id": "2025-09-spain",
-      "label": "2025 Spain GP",
+      "label": "2025 Spanish GP",
+      "year": 2025,
       "url": "data/races/2025-09-spain.json.gz"
     },
     {
       "id": "2025-10-canada",
-      "label": "2025 Canada GP",
+      "label": "2025 Canadian GP",
+      "year": 2025,
       "url": "data/races/2025-10-canada.json.gz"
     },
     {
       "id": "2025-11-austria",
-      "label": "2025 Austria GP",
+      "label": "2025 Austrian GP",
+      "year": 2025,
       "url": "data/races/2025-11-austria.json.gz"
     },
     {
       "id": "2025-12-britain",
-      "label": "2025 Britain GP",
+      "label": "2025 British GP",
+      "year": 2025,
       "url": "data/races/2025-12-britain.json.gz"
     },
     {
       "id": "2025-13-belgium",
-      "label": "2025 Belgium GP",
+      "label": "2025 Belgian GP",
+      "year": 2025,
       "url": "data/races/2025-13-belgium.json.gz"
     },
     {
       "id": "2025-14-hungary",
-      "label": "2025 Hungary GP",
+      "label": "2025 Hungarian GP",
+      "year": 2025,
       "url": "data/races/2025-14-hungary.json.gz"
     },
     {
       "id": "2025-15-netherlands",
-      "label": "2025 Netherlands GP",
+      "label": "2025 Dutch GP",
+      "year": 2025,
       "url": "data/races/2025-15-netherlands.json.gz"
     },
     {
       "id": "2025-16-italy",
-      "label": "2025 Italy GP",
+      "label": "2025 Italian GP",
+      "year": 2025,
       "url": "data/races/2025-16-italy.json.gz"
     },
     {
       "id": "2025-17-azerbaijan",
       "label": "2025 Azerbaijan GP",
+      "year": 2025,
       "url": "data/races/2025-17-azerbaijan.json.gz"
     },
     {
       "id": "2025-18-singapore",
       "label": "2025 Singapore GP",
+      "year": 2025,
       "url": "data/races/2025-18-singapore.json.gz"
     },
     {
       "id": "2025-19-usa",
-      "label": "2025 Usa GP",
+      "label": "2025 United States GP",
+      "year": 2025,
       "url": "data/races/2025-19-usa.json.gz"
     },
     {
       "id": "2025-20-mexico",
-      "label": "2025 Mexico GP",
+      "label": "2025 Mexico City GP",
+      "year": 2025,
       "url": "data/races/2025-20-mexico.json.gz"
     },
     {
       "id": "2025-21-brazil",
-      "label": "2025 Brazil GP",
+      "label": "2025 S\u00e3o Paulo GP",
+      "year": 2025,
       "url": "data/races/2025-21-brazil.json.gz"
     },
     {
       "id": "2025-22-las-vegas",
       "label": "2025 Las Vegas GP",
+      "year": 2025,
       "url": "data/races/2025-22-las-vegas.json.gz"
     },
     {
       "id": "2025-23-qatar",
       "label": "2025 Qatar GP",
+      "year": 2025,
       "url": "data/races/2025-23-qatar.json.gz"
     },
     {
       "id": "2025-24-abu-dhabi",
       "label": "2025 Abu Dhabi GP",
+      "year": 2025,
       "url": "data/races/2025-24-abu-dhabi.json.gz"
     }
   ]
