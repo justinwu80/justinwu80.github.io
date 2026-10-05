@@ -46,11 +46,32 @@ select,
     line-height: 1.35;
 }
 
+/* Keep the follow-cam HUD out of the centre of the frame, where the car is. */
+.cockpit-hud {
+    top: 64px;
+    bottom: auto;
+    left: 16px;
+    transform: none;
+    width: 260px;
+    padding: 10px 12px;
+}
+
+.cockpit-hud.hidden {
+    transform: translateY(-10px);
+}
+
 @media (max-width: 720px) {
     .portfolio-back {
         top: 10px;
         left: 10px;
         font-size: 0.78rem;
         padding: 0.45rem 0.7rem;
+    }
+
+    .cockpit-hud {
+        top: 52px;
+        left: 10px;
+        width: min(240px, calc(100vw - 20px));
+        padding: 8px 10px;
     }
 }
