@@ -1,404 +1,222 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justin Wu | Portfolio</title>
+    <title>Justin Wu | Carnegie Mellon AI</title>
     <meta name="description"
-        content="Justin Wu — Carnegie Mellon AI student. Computational biology research, GWAS, Apex 3D F1 replay, ISMB 2026 poster, and selected projects.">
-    <meta name="theme-color" content="#0b1120">
-    <script>document.documentElement.classList.add('js');</script>
+        content="Justin Wu — Carnegie Mellon Artificial Intelligence student. Computational biology research, GWAS analysis, ISMB 2026 poster, and selected engineering projects.">
+    <meta name="theme-color" content="#f4f6f8">
     <link rel="icon" type="image/jpeg" href="galaxy.jpeg">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'accent-color': 'var(--accent-color)',
-                        'accent-hover': 'var(--accent-hover)',
-                        'light-primary': 'var(--text-light-primary)',
-                        'dark-primary': 'var(--text-dark-primary)',
-                        'light-secondary': 'var(--text-light-secondary)',
-                        'dark-secondary': 'var(--text-dark-secondary)'
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="transition-colors duration-300">
+<body>
     <a href="#main-content" class="skip-link">Skip to content</a>
 
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="loader-content"></div>
-    </div>
-
-    <!-- Background Canvas -->
-    <canvas id="starfield"></canvas>
-
-    <div class="main-container max-w-5xl mx-auto my-5 sm:my-8 p-5 sm:p-8 lg:p-10 rounded-3xl shadow-2xl relative z-10">
-        <nav class="site-nav reveal" aria-label="Primary navigation">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#honors">Honors</a>
-            <a href="#contact">Contact</a>
-        </nav>
-
-        <header class="hero text-center mb-16 reveal">
-            <img src="galaxy.jpeg" alt="Galaxy Icon"
-                class="hero-avatar w-32 h-32 sm:w-36 sm:h-36 rounded-full mx-auto mb-6 border-4 border-white dark:border-slate-600 shadow-xl transition-transform duration-300 hover:scale-105">
-            <p class="eyebrow">Artificial intelligence • Computational biology • CS</p>
-            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter"><span
-                    class="gradient-name">Justin Wu</span></h1>
-            <p class="text-xl sm:text-2xl text-light-secondary dark:text-dark-secondary mt-4 max-w-3xl mx-auto">
-                <span id="typing-text" data-text="CMU AI | Computational Biology | Programmer"></span><span
-                    class="typing-cursor"></span>
-            </p>
-            <p class="hero-summary text-lg sm:text-xl text-light-secondary dark:text-dark-secondary mt-6 max-w-3xl mx-auto">
-                Carnegie Mellon Artificial Intelligence student focused on computational biology, GWAS analysis, and
-                interactive systems — from ancestry inference research to a 3D Formula 1 replay engine.
-            </p>
-            <div class="hero-actions mt-8">
-                <a class="button-primary" href="#projects"><i class="fas fa-layer-group"></i>View projects</a>
-                <a class="button-secondary" href="JustinWuResume.pdf" download><i class="fas fa-file-arrow-down"></i>Download resume</a>
-                <a class="button-secondary" href="mailto:jzwu@andrew.cmu.edu"><i class="fas fa-envelope"></i>Get in touch</a>
-            </div>
-            <div class="highlight-strip" aria-label="Portfolio highlights">
-                <div><strong>CMU AI</strong><span>B.S. expected May 2029</span></div>
-                <div><strong>GPA 4.0</strong><span>4.0 / 4.0</span></div>
-                <div><strong>ISMB 2026</strong><span>Poster</span></div>
-                <div><strong>Nathanson Lab</strong><span>Research</span></div>
-            </div>
+    <div class="page">
+        <header class="topbar">
+            <a class="brand" href="#">Justin Wu</a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#honors">Honors</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a class="button button-small" href="JustinWuResume.pdf" download>Resume</a>
         </header>
 
-        <main id="main-content" class="space-y-16">
-            <section id="about" class="reveal">
-                <p class="section-kicker">About</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Curious where code meets science.</h2>
-                <p class="text-lg sm:text-xl leading-relaxed text-light-secondary dark:text-dark-secondary">I am a
-                    Carnegie Mellon Artificial Intelligence student focused on computational biology, GWAS analysis,
-                    and building systems that turn messy scientific questions into clearer, testable results.
-                    Outside research, I ship interactive tools — from a 3D race replay engine to algorithm visualizers —
-                    and still swim for the same grit that shows up in long research problems.</p>
+        <header class="hero">
+            <p class="eyebrow">Carnegie Mellon University · Artificial Intelligence</p>
+            <h1>Justin Wu</h1>
+            <p class="hero-role">B.S. Artificial Intelligence · Expected May 2029 · GPA 4.0/4.0</p>
+            <p class="hero-summary">
+                Computational biology and software engineering — GWAS analysis, ancestry inference research,
+                and interactive systems built for clarity and performance.
+            </p>
+            <div class="hero-actions">
+                <a class="button" href="JustinWuResume.pdf" download>Download resume</a>
+                <a class="button button-ghost" href="mailto:jzwu@andrew.cmu.edu">jzwu@andrew.cmu.edu</a>
+            </div>
+            <ul class="hero-meta" aria-label="Highlights">
+                <li>Nathanson Lab research</li>
+                <li>ISMB 2026 poster</li>
+                <li>Apex · 3D F1 replay</li>
+            </ul>
+        </header>
+
+        <main id="main-content">
+            <section id="about">
+                <h2>About</h2>
+                <p>
+                    I am a Carnegie Mellon Artificial Intelligence student focused on computational biology and
+                    genome-wide association studies. My work centers on turning large genetic datasets into clearer,
+                    testable results — from polygenic risk analysis to topological approaches for ancestry inference.
+                    I also build engineering systems, including a real-time 3D Formula 1 replay engine.
+                </p>
             </section>
 
-            <section id="education" class="reveal">
-                <p class="section-kicker">School</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Education</h2>
-                <div class="card tilt-card p-8">
-                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+            <section id="education">
+                <h2>Education</h2>
+                <article class="entry">
+                    <div class="entry-head">
                         <div>
-                            <h3 class="text-xl font-bold flex items-center"><i
-                                    class="fas fa-university icon mr-3"></i>Carnegie Mellon University</h3>
-                            <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Bachelor of Science in
-                                Artificial Intelligence</p>
-                            <p class="text-md text-light-secondary dark:text-dark-secondary mt-1">Pittsburgh, PA</p>
+                            <h3>Carnegie Mellon University</h3>
+                            <p class="entry-sub">Bachelor of Science in Artificial Intelligence · Pittsburgh, PA</p>
                         </div>
-                        <div class="sm:text-right">
-                            <span class="date-badge">August 2026 – May 2029</span>
-                            <p class="text-md font-semibold mt-3 text-light-primary dark:text-dark-primary">GPA: 4.0/4.0</p>
-                        </div>
+                        <p class="entry-date">August 2026 – May 2029</p>
                     </div>
-                </div>
+                    <p class="entry-note">GPA: 4.0/4.0</p>
+                </article>
             </section>
 
-            <section id="experience" class="reveal">
-                <p class="section-kicker">Experience</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Research &amp; Publications</h2>
-                <div class="space-y-8">
-                    <div class="card tilt-card p-8">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                            <div>
-                                <h3 class="text-xl font-bold flex items-center"><i
-                                        class="fas fa-microscope icon mr-3"></i>Research Assistant</h3>
-                                <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Nathanson Lab,
-                                    Perelman School of Medicine, University of Pennsylvania</p>
-                                <p class="text-sm text-light-secondary dark:text-dark-secondary">Philadelphia, PA</p>
-                            </div>
-                            <span class="date-badge shrink-0">June 2024 – August 2026</span>
-                        </div>
-                        <ul class="detail-list mt-4 text-md text-light-secondary dark:text-dark-secondary">
-                            <li>Conducted association testing on approximately 500K single-nucleotide polymorphisms
-                                (SNPs) across thousands of samples in a genome-wide association study (GWAS)
-                                meta-analysis of polygenic risk scores and cancer relapse in testicular germ cell
-                                tumors, producing Manhattan and QQ plots to assess genome-wide significance</li>
-                            <li>Engineered a Bash/Python pipeline to identify proxy SNPs in linkage disequilibrium
-                                (r² ≥ 0.8) with 100+ lead GWAS hits across 500 kb windows, using LocusZoom for
-                                regional LD visualization to enable downstream fine-mapping</li>
-                            <li>Harmonized SNP naming and genome builds across the Penn Medicine BioBank (PMBB),
-                                Gencove, and Discovery cohorts, correcting an outdated marker list and tripling the
-                                size of the shared replication set</li>
-                        </ul>
-                    </div>
+            <section id="experience">
+                <h2>Experience</h2>
 
-                    <div class="card tilt-card p-8">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                            <div>
-                                <h3 class="text-xl font-bold flex items-center"><i
-                                        class="fas fa-file-alt icon mr-3"></i>Enhancing Genetic Ancestry Inference
-                                    through TDA and Clustering</h3>
-                                <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">Wu, J., &amp;
-                                    Yang, T. — Poster, Intelligent Systems for Molecular Biology (ISMB) Conference</p>
-                            </div>
-                            <span class="date-badge shrink-0">July 2026</span>
-                        </div>
-                        <ul class="detail-list mt-4 text-md text-light-secondary dark:text-dark-secondary">
-                            <li>Paired topological features with unsupervised clustering to improve ancestry inference
-                                in admixed populations, reaching 96% accuracy on the admixed American (AMR)
-                                superpopulation versus 73% for PCA with k-means</li>
-                            <li>Applied persistent homology to 1000 Genomes Project SNP data from 2,504 individuals
-                                across 26 populations, generating persistence barcodes to capture population structure
-                                beyond what linear methods such as PCA reveal</li>
-                            <li>Maintained overall ancestry classification accuracy of 99.08% using topological data
-                                analysis (TDA) with Ward linkage clustering, on par with PCA with k-means (99%)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="projects" class="reveal">
-                <p class="section-kicker">Selected work</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Projects</h2>
-
-                <a href="f1/" class="card tilt-card project-card featured-project block p-8 group mb-8">
-                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                <article class="entry">
+                    <div class="entry-head">
                         <div>
-                            <span class="project-icon">🏎️</span>
-                            <h3
-                                class="text-2xl font-bold group-hover:text-accent-color dark:group-hover:text-accent-hover transition-colors">
-                                Apex</h3>
-                            <p class="text-sm text-light-secondary dark:text-dark-secondary mt-1">3D F1 Race Replay
-                                Engine | Three.js, Vite, FastF1</p>
+                            <h3>Research Assistant</h3>
+                            <p class="entry-sub">Nathanson Lab, Perelman School of Medicine, University of Pennsylvania · Philadelphia, PA</p>
                         </div>
-                        <span class="date-badge shrink-0">June 2025 – June 2026</span>
+                        <p class="entry-date">June 2024 – August 2026</p>
                     </div>
-                    <ul class="detail-list mt-4 text-md text-light-secondary dark:text-dark-secondary">
+                    <ul>
+                        <li>Conducted association testing on approximately 500K single-nucleotide polymorphisms (SNPs)
+                            across thousands of samples in a GWAS meta-analysis of polygenic risk scores and cancer
+                            relapse in testicular germ cell tumors, producing Manhattan and QQ plots to assess
+                            genome-wide significance.</li>
+                        <li>Engineered a Bash/Python pipeline to identify proxy SNPs in linkage disequilibrium
+                            (r² ≥ 0.8) with 100+ lead GWAS hits across 500 kb windows, using LocusZoom for regional LD
+                            visualization to enable downstream fine-mapping.</li>
+                        <li>Harmonized SNP naming and genome builds across the Penn Medicine BioBank (PMBB), Gencove,
+                            and Discovery cohorts, correcting an outdated marker list and tripling the size of the
+                            shared replication set.</li>
+                    </ul>
+                </article>
+
+                <article class="entry">
+                    <div class="entry-head">
+                        <div>
+                            <h3>Enhancing Genetic Ancestry Inference through TDA and Clustering</h3>
+                            <p class="entry-sub">Wu, J., &amp; Yang, T. — Poster, Intelligent Systems for Molecular Biology (ISMB) Conference</p>
+                        </div>
+                        <p class="entry-date">July 2026</p>
+                    </div>
+                    <ul>
+                        <li>Paired topological features with unsupervised clustering to improve ancestry inference in
+                            admixed populations, reaching 96% accuracy on the admixed American (AMR) superpopulation
+                            versus 73% for PCA with k-means.</li>
+                        <li>Applied persistent homology to 1000 Genomes Project SNP data from 2,504 individuals across
+                            26 populations, generating persistence barcodes to capture population structure beyond what
+                            linear methods such as PCA reveal.</li>
+                        <li>Maintained overall ancestry classification accuracy of 99.08% using topological data
+                            analysis (TDA) with Ward linkage clustering, on par with PCA with k-means (99%).</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section id="projects">
+                <h2>Projects</h2>
+
+                <article class="entry featured">
+                    <div class="entry-head">
+                        <div>
+                            <h3><a href="f1/">Apex — 3D F1 Race Replay Engine</a></h3>
+                            <p class="entry-sub">Three.js, Vite, FastF1</p>
+                        </div>
+                        <p class="entry-date">June 2025 – June 2026</p>
+                    </div>
+                    <ul>
                         <li>Built an interactive 3D replay engine visualizing ∼140 Formula 1 races since 2020 from real
-                            FastF1 telemetry, rendering ∼250K data points per race at a sustained 60 FPS</li>
+                            FastF1 telemetry, rendering ∼250K data points per race at a sustained 60 FPS.</li>
                         <li>Applied Kalman filtering to smooth noisy telemetry, cutting car jitter by 50%, and
-                            physics-informed splines to interpolate car paths without overlap between cars</li>
+                            physics-informed splines to interpolate car paths without overlap between cars.</li>
                         <li>Implemented multiple camera modes (free orbit, follow car, TV chase/action cams) and
-                            variable-speed playback (0.5x–64x) synchronized with telemetry</li>
+                            variable-speed playback (0.5x–64x) synchronized with telemetry.</li>
                     </ul>
-                    <div class="project-tech mt-4">
-                        <span>Three.js</span><span>Vite</span><span>FastF1</span><span>Gzip API</span>
-                    </div>
-                </a>
+                    <p class="entry-link"><a href="f1/">Open live demo</a></p>
+                </article>
 
-                <p class="subsection-label">Also on this site</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <a href="btd6/" class="card tilt-card project-card block p-6 group" id="btd6-link">
-                        <span class="project-icon">🎈</span>
-                        <h3
-                            class="text-xl font-bold group-hover:text-accent-color dark:group-hover:text-accent-hover transition-colors">
-                            BTD6 Ranking</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">An interactive guide for
-                            ranking and exploring the best crosspaths in Bloons TD 6.</p>
-                        <div class="project-tech">
-                            <span>HTML</span><span>CSS</span><span>JavaScript</span>
-                        </div>
-                    </a>
-                    <a href="knights-tour/" class="card tilt-card project-card block p-6 group">
-                        <span class="project-icon">♞</span>
-                        <h3
-                            class="text-xl font-bold group-hover:text-accent-color dark:group-hover:text-accent-hover transition-colors">
-                            Knight's Tour</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">Visualizing the Knight's
-                            Tour problem using Warnsdorff's backtracking algorithm on a chessboard.</p>
-                        <div class="project-tech">
-                            <span>Java</span><span>Canvas API</span><span>Algorithms</span>
-                        </div>
-                    </a>
-                    <a href="game-of-life/" class="card tilt-card project-card block p-6 group">
-                        <span class="project-icon">🧬</span>
-                        <h3
-                            class="text-xl font-bold group-hover:text-accent-color dark:group-hover:text-accent-hover transition-colors">
-                            Game of Life</h3>
-                        <p class="text-md text-light-secondary dark:text-dark-secondary mt-2">A simulation of Conway's
-                            Game of Life, visualizing cellular automata with interactive controls.</p>
-                        <div class="project-tech">
-                            <span>Python</span><span>Pygame</span><span>Canvas API</span>
-                        </div>
-                    </a>
-                </div>
-            </section>
-
-            <section id="skills" class="reveal">
-                <p class="section-kicker">Toolkit</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Technical Skills</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold mb-5 flex items-center"><i
-                                class="fas fa-code icon mr-3 text-2xl"></i>Languages</h3>
-                        <ul class="space-y-3 text-md text-light-secondary dark:text-dark-secondary">
-                            <li class="flex items-center"><i class="fab fa-java icon w-6 mr-3"></i>Java</li>
-                            <li class="flex items-center"><i class="fab fa-python icon w-6 mr-3"></i>Python</li>
-                            <li class="flex items-center"><i class="fas fa-microchip icon w-6 mr-3"></i>C / C++</li>
-                            <li class="flex items-center"><i class="fab fa-js icon w-6 mr-3"></i>JavaScript</li>
-                            <li class="flex items-center"><i class="fab fa-html5 icon w-6 mr-3"></i>HTML / CSS</li>
-                            <li class="flex items-center"><i class="fas fa-chart-line icon w-6 mr-3"></i>R</li>
-                            <li class="flex items-center"><i class="fab fa-swift icon w-6 mr-3"></i>Swift</li>
-                        </ul>
-                    </div>
-                    <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold mb-5 flex items-center"><i
-                                class="fas fa-toolbox icon mr-3 text-2xl"></i>Developer Tools</h3>
-                        <ul class="space-y-3 text-md text-light-secondary dark:text-dark-secondary">
-                            <li class="flex items-center"><i class="fab fa-git-alt icon w-6 mr-3"></i>Git</li>
-                            <li class="flex items-center"><i class="fab fa-docker icon w-6 mr-3"></i>Docker</li>
-                            <li class="flex items-center"><i class="fas fa-code icon w-6 mr-3"></i>VS Code</li>
-                            <li class="flex items-center"><i class="fas fa-laptop-code icon w-6 mr-3"></i>Visual Studio</li>
-                            <li class="flex items-center"><i class="fas fa-terminal icon w-6 mr-3"></i>PyCharm / Eclipse</li>
-                            <li class="flex items-center"><i class="fas fa-dollar-sign icon w-6 mr-3"></i>Bash</li>
-                            <li class="flex items-center"><i class="fab fa-npm icon w-6 mr-3"></i>npm</li>
-                        </ul>
-                    </div>
-                    <div class="card tilt-card p-8">
-                        <h3 class="text-xl font-bold mb-5 flex items-center"><i
-                                class="fas fa-flask icon mr-3 text-2xl"></i>Libraries</h3>
-                        <ul class="space-y-3 text-md text-light-secondary dark:text-dark-secondary">
-                            <li>pandas, NumPy, SciPy</li>
-                            <li>Matplotlib, seaborn</li>
-                            <li>scikit-learn, statsmodels</li>
-                            <li>Biopython</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card tilt-card p-6 mt-8">
-                    <h3 class="text-lg font-bold mb-3 flex items-center"><i
-                            class="fas fa-dna icon mr-3"></i>Domains</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag font-semibold px-4 py-2 text-sm">Bioinformatics / computational biology</span>
-                        <span class="tag font-semibold px-4 py-2 text-sm">GWAS analysis</span>
-                        <span class="tag font-semibold px-4 py-2 text-sm">Statistical computing</span>
-                        <span class="tag font-semibold px-4 py-2 text-sm">Data visualization</span>
-                    </div>
-                </div>
-            </section>
-
-            <section id="honors" class="reveal">
-                <p class="section-kicker">Recognition</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Honors &amp; Awards</h2>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">2x AIME Qualifier (2023, 2025)</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">USA Biolympiad, Recognition of
-                        Academic Excellence — top 50 of 10000+ (2025)</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">MathWorks M3 Challenge Honorable
-                        Mention — top 25 of 800+ papers (2025)</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">FBLA PA State Champion, Computer
-                        Problem Solving (2025)</span>
-                    <span class="tag font-semibold px-5 py-2 rounded-full text-md">Pennsylvania Seal of Biliteracy,
-                        Spanish (2026)</span>
-                </div>
-            </section>
-
-            <section id="leadership" class="reveal">
-                <p class="section-kicker">Beyond class</p>
-                <h2 class="text-3xl sm:text-4xl font-bold pb-3 mb-6">Leadership &amp; Activities</h2>
-                <div class="card tilt-card p-8">
-                    <ul
-                        class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-lg text-light-secondary dark:text-dark-secondary">
-                        <li class="leadership-item flex items-center"><i class="fas fa-crown icon w-6 mr-4"></i>President, Math Modeling Club</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-laptop-code icon w-6 mr-4"></i>Vice President, Computer Science Club</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-users icon w-6 mr-4"></i>Team Captain, Lehigh Valley ARML</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-landmark icon w-6 mr-4"></i>Student Advisory Council, Sen. Carolyn Comitta</li>
-                        <li class="leadership-item flex items-center"><i class="fas fa-swimmer icon w-6 mr-4"></i>Varsity Swim Team</li>
+                <div class="secondary-projects">
+                    <h3>Additional demos</h3>
+                    <ul class="link-list">
+                        <li>
+                            <a href="knights-tour/">Knight’s Tour</a>
+                            <span>Warnsdorff backtracking visualizer · Java, Canvas</span>
+                        </li>
+                        <li>
+                            <a href="game-of-life/">Conway’s Game of Life</a>
+                            <span>Interactive cellular automata · Python, Canvas</span>
+                        </li>
+                        <li>
+                            <a href="btd6/" id="btd6-link">BTD6 Crosspath Guide</a>
+                            <span>Interactive ranking tool · HTML, CSS, JavaScript</span>
+                        </li>
                     </ul>
                 </div>
+            </section>
+
+            <section id="skills">
+                <h2>Technical Skills</h2>
+                <dl class="skills-list">
+                    <div>
+                        <dt>Languages</dt>
+                        <dd>Java, Python, C/C++, JavaScript, HTML/CSS, R, Swift</dd>
+                    </div>
+                    <div>
+                        <dt>Developer Tools</dt>
+                        <dd>Git, Docker, VS Code, Visual Studio, PyCharm, Eclipse, Bash, npm</dd>
+                    </div>
+                    <div>
+                        <dt>Libraries</dt>
+                        <dd>pandas, NumPy, Matplotlib, SciPy, scikit-learn, seaborn, statsmodels, Biopython</dd>
+                    </div>
+                    <div>
+                        <dt>Domains</dt>
+                        <dd>Bioinformatics / computational biology, GWAS analysis, statistical computing, data visualization</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section id="honors">
+                <h2>Honors &amp; Awards</h2>
+                <ul class="plain-list">
+                    <li>2x American Invitational Mathematics Examination (AIME) Qualifier (2023, 2025)</li>
+                    <li>USA Biolympiad, Recognition of Academic Excellence — top 50 of 10000+ competitors (2025)</li>
+                    <li>MathWorks Math Modeling (M3) Challenge, Honorable Mention — top 25 of 800+ papers (2025)</li>
+                    <li>Future Business Leaders of America (FBLA) PA State Champion, Computer Problem Solving (2025)</li>
+                    <li>Pennsylvania Seal of Biliteracy, Spanish (2026)</li>
+                </ul>
+            </section>
+
+            <section id="leadership">
+                <h2>Leadership &amp; Activities</h2>
+                <ul class="plain-list two-col">
+                    <li>President, Math Modeling Club</li>
+                    <li>Vice President, Computer Science Club</li>
+                    <li>Team Captain, Lehigh Valley ARML</li>
+                    <li>Student Advisory Council, Sen. Carolyn Comitta</li>
+                    <li>Varsity Swim Team</li>
+                </ul>
             </section>
         </main>
 
-        <footer class="text-center mt-20 pt-10 reveal">
-            <div class="section-divider mb-10"></div>
-            <p class="text-sm font-medium text-light-secondary dark:text-dark-secondary mb-6 tracking-wide uppercase">Let's Connect</p>
-            <div id="contact" class="flex justify-center items-center space-x-6 mb-8">
-                <a href="mailto:jzwu@andrew.cmu.edu"
-                    class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
-                    aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://github.com/justinwu80" target="_blank" rel="noopener noreferrer"
-                    class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
-                    aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/justinwu80/" target="_blank" rel="noopener noreferrer"
-                    class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
-                    aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="JustinWuResume.pdf" download
-                    class="footer-link text-light-secondary dark:text-dark-secondary hover:text-accent-color dark:hover:text-accent-hover text-2xl"
-                    aria-label="Download resume"><i class="fas fa-file-arrow-down"></i></a>
-            </div>
-            <p class="text-sm text-light-secondary dark:text-dark-secondary opacity-60">&copy; 2026 Justin Wu</p>
+        <footer id="contact" class="site-footer">
+            <h2>Contact</h2>
+            <ul class="contact-list">
+                <li><a href="mailto:jzwu@andrew.cmu.edu">jzwu@andrew.cmu.edu</a></li>
+                <li><a href="https://github.com/justinwu80" target="_blank" rel="noopener noreferrer">github.com/justinwu80</a></li>
+                <li><a href="https://www.linkedin.com/in/justinwu80/" target="_blank" rel="noopener noreferrer">linkedin.com/in/justinwu80</a></li>
+                <li><a href="JustinWuResume.pdf" download>Download resume (PDF)</a></li>
+            </ul>
+            <p class="copyright">&copy; 2026 Justin Wu</p>
         </footer>
-    </div>
-
-    <button id="theme-toggle"
-        class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-card shadow-lg flex items-center justify-center text-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color border border-theme transition-transform duration-300 hover:scale-110 z-50"
-        aria-label="Toggle theme">
-        <i id="theme-icon-light" class="fas fa-sun"></i>
-        <i id="theme-icon-dark" class="fas fa-moon hidden"></i>
-    </button>
-
-    <button id="settings-toggle"
-        class="fixed bottom-20 right-6 w-12 h-12 rounded-full bg-card shadow-lg flex items-center justify-center text-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color border border-theme transition-transform duration-300 hover:scale-110 z-50"
-        aria-label="Starfield settings">
-        <i class="fas fa-cog text-light-secondary dark:text-dark-secondary"></i>
-    </button>
-
-    <button id="scroll-top"
-        class="fixed bottom-34 right-6 w-12 h-12 rounded-full bg-card shadow-lg flex items-center justify-center text-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color border border-theme transition-all duration-300 hover:scale-110 z-50 opacity-0 pointer-events-none translate-y-4"
-        aria-label="Scroll to top">
-        <i class="fas fa-arrow-up text-light-secondary dark:text-dark-secondary"></i>
-    </button>
-
-    <!-- Settings Modal -->
-    <div id="settings-modal"
-        class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-        <div
-            class="bg-card border border-theme p-8 rounded-3xl shadow-2xl w-full max-w-md transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-b-0">Theme Settings</h2>
-                <button id="close-settings"
-                    class="text-light-secondary dark:text-dark-secondary hover:text-accent-color transition-colors"
-                    aria-label="Close settings">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-
-            <div class="space-y-6">
-                <div>
-                    <label
-                        class="flex justify-between text-sm font-bold text-light-secondary dark:text-dark-secondary mb-2">
-                        Star Count <span id="star-count-val" class="text-accent-color">100</span>
-                    </label>
-                    <input type="range" id="star-count" min="20" max="300" value="100"
-                        class="w-full accent-accent-color">
-                </div>
-
-                <div>
-                    <label
-                        class="flex justify-between text-sm font-bold text-light-secondary dark:text-dark-secondary mb-2">
-                        Star Speed <span id="star-speed-val" class="text-accent-color">1.0x</span>
-                    </label>
-                    <input type="range" id="star-speed" min="0.1" max="3.0" step="0.1" value="1.0"
-                        class="w-full accent-accent-color">
-                </div>
-
-                <div class="pt-4 border-t border-theme flex justify-end">
-                    <button id="reset-settings"
-                        class="text-sm font-bold text-red-500 hover:text-red-600 transition-colors">
-                        Reset to Defaults
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="script.js"></script>
