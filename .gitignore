@@ -4,3 +4,4 @@
 node_modules/
 dist/
 *.log
+f1/.fastf1-cache/
