@@ -1,0 +1,56 @@
+/* Formal portfolio chrome overlay for Apex (keeps dark racing scene) */
+:root {
+    --font-ui: "Source Sans 3", "Segoe UI", sans-serif;
+}
+
+body,
+button,
+input,
+select,
+.control-panel {
+    font-family: var(--font-ui) !important;
+}
+
+.portfolio-back {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid rgba(220, 240, 228, 0.16);
+    background: rgba(6, 14, 11, 0.82);
+    color: #e8f0e8;
+    text-decoration: none;
+    font-size: 0.86rem;
+    font-weight: 700;
+    backdrop-filter: blur(16px);
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.portfolio-back:hover {
+    border-color: rgba(220, 240, 228, 0.35);
+    background: rgba(12, 24, 20, 0.9);
+    color: #fff;
+}
+
+.pipeline-note {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
+}
+
+@media (max-width: 720px) {
+    .portfolio-back {
+        top: 10px;
+        left: 10px;
+        font-size: 0.78rem;
+        padding: 0.45rem 0.7rem;
+    }
+}
