@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Justin Wu</title>
+    <meta name="description"
+        content="Justin Wu — Carnegie Mellon Artificial Intelligence resume. Education, research, technical projects, and awards.">
+    <meta name="theme-color" content="#f4f6f8">
+    <link rel="icon" type="image/jpeg" href="../galaxy.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #2b2e31;
+            font-family: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+            color: #142033;
+        }
+
+        .top-bar {
+            height: 56px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.25rem;
+            background: #ffffff;
+            border-bottom: 1px solid #d5dde7;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            gap: 1rem;
+        }
+
+        .title-group {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            min-width: 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: #1f4f78;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.35rem 0.6rem;
+            border-radius: 5px;
+            transition: background 0.15s ease, color 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .back-link:hover {
+            background: rgba(31, 79, 120, 0.08);
+            color: #163a58;
+        }
+
+        .divider {
+            width: 1px;
+            height: 22px;
+            background: #d5dde7;
+            flex-shrink: 0;
+        }
+
+        .title-text {
+            min-width: 0;
+        }
+
+        .resume-title {
+            font-family: "Source Serif 4", Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #142033;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .resume-subtitle {
+            font-size: 0.78rem;
+            color: #4b5a6d;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .actions-group {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #1f4f78;
+            border: 1px solid #c2cdd8;
+        }
+
+        .btn-outline:hover {
+            background: rgba(31, 79, 120, 0.08);
+            border-color: #1f4f78;
+            color: #163a58;
+        }
+
+        .btn-primary {
+            background: #1f4f78;
+            color: #ffffff;
+            border: 1px solid #1f4f78;
+        }
+
+        .btn-primary:hover {
+            background: #163a58;
+            border-color: #163a58;
+            color: #ffffff;
+        }
+
+        .pdf-viewer-frame {
+            width: 100%;
+            height: calc(100vh - 56px);
+            height: calc(100dvh - 56px);
+            border: none;
+            display: block;
+            background: #323639;
+        }
+
+        @media (max-width: 680px) {
+            .resume-subtitle {
+                display: none;
+            }
+            .btn-outline {
+                display: none;
+            }
+            .top-bar {
+                padding: 0 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-bar">
+        <div class="title-group">
+            <a class="back-link" href="../">← Portfolio</a>
+            <div class="divider"></div>
+            <div class="title-text">
+                <div class="resume-title">Justin Wu — Resume</div>
+                <div class="resume-subtitle">Carnegie Mellon University · Artificial Intelligence</div>
+            </div>
+        </div>
+        <div class="actions-group">
+            <a class="btn btn-outline" href="../JustinWuOnlineResume.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a class="btn btn-primary" href="../JustinWuOnlineResume.pdf" download="JustinWu_Resume.pdf">Download PDF</a>
+        </div>
+    </header>
+
+    <iframe class="pdf-viewer-frame" src="../JustinWuOnlineResume.pdf#view=FitH" title="Justin Wu Resume"></iframe>
+</body>
+
+</html>

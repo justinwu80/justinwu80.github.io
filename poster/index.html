@@ -13,132 +13,179 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
-            background: #f4f6f8;
-            color: #142033;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        header {
-            padding: 1rem 1.75rem;
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #2b2e31;
+            font-family: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+            color: #142033;
+        }
+
+        .top-bar {
+            height: 56px;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
+            padding: 0 1.25rem;
+            background: #ffffff;
             border-bottom: 1px solid #d5dde7;
-            flex-shrink: 0;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
             gap: 1rem;
         }
 
-        .header-actions {
+        .title-group {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.85rem;
+            min-width: 0;
         }
 
-        .nav-link {
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
             color: #1f4f78;
             text-decoration: none;
             font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.15s ease;
-        }
-
-        .nav-link:hover {
-            color: #163a58;
-            text-decoration: underline;
-        }
-
-        .btn-download {
-            display: inline-block;
-            padding: 0.45rem 0.9rem;
-            background: #1f4f78;
-            color: #ffffff;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.88rem;
             font-weight: 600;
-            transition: background 0.15s ease;
+            padding: 0.35rem 0.6rem;
+            border-radius: 5px;
+            transition: background 0.15s ease, color 0.15s ease;
+            white-space: nowrap;
         }
 
-        .btn-download:hover {
-            background: #163a58;
+        .back-link:hover {
+            background: rgba(31, 79, 120, 0.08);
+            color: #163a58;
+        }
+
+        .divider {
+            width: 1px;
+            height: 22px;
+            background: #d5dde7;
+            flex-shrink: 0;
+        }
+
+        .title-text {
+            min-width: 0;
         }
 
         .poster-title {
             font-family: "Source Serif 4", Georgia, serif;
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: #142033;
             letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .poster-subtitle {
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             color: #4b5a6d;
-            margin-top: 0.15rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .pdf-container {
-            flex: 1;
+        .actions-group {
             display: flex;
-            align-items: stretch;
-            background: #e5e9f0;
-        }
-
-        .pdf-container iframe,
-        .pdf-container embed,
-        .pdf-container object {
-            width: 100%;
-            height: 100%;
-            border: none;
-            flex: 1;
-        }
-
-        .fallback {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            padding: 3rem 2rem;
-            text-align: center;
+            gap: 0.65rem;
+            flex-shrink: 0;
         }
 
-        .fallback p {
-            color: #4b5a6d;
-            font-size: 1.05rem;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #1f4f78;
+            border: 1px solid #c2cdd8;
+        }
+
+        .btn-outline:hover {
+            background: rgba(31, 79, 120, 0.08);
+            border-color: #1f4f78;
+            color: #163a58;
+        }
+
+        .btn-primary {
+            background: #1f4f78;
+            color: #ffffff;
+            border: 1px solid #1f4f78;
+        }
+
+        .btn-primary:hover {
+            background: #163a58;
+            border-color: #163a58;
+            color: #ffffff;
+        }
+
+        .pdf-viewer-frame {
+            width: 100%;
+            height: calc(100vh - 56px);
+            height: calc(100dvh - 56px);
+            border: none;
+            display: block;
+            background: #323639;
+        }
+
+        @media (max-width: 680px) {
+            .poster-subtitle {
+                display: none;
+            }
+            .btn-outline {
+                display: none;
+            }
+            .top-bar {
+                padding: 0 0.85rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <div>
-            <div class="poster-title">ISMB 2026 Poster</div>
-            <div class="poster-subtitle">Wu, J. &amp; Yang, T. — Enhancing Genetic Ancestry Inference through TDA &amp; Unsupervised Clustering</div>
+    <header class="top-bar">
+        <div class="title-group">
+            <a class="back-link" href="../">← Portfolio</a>
+            <div class="divider"></div>
+            <div class="title-text">
+                <div class="poster-title">ISMB 2026 Conference Poster</div>
+                <div class="poster-subtitle">Wu, J. &amp; Yang, T. — Enhancing Genetic Ancestry Inference through TDA &amp; Clustering</div>
+            </div>
         </div>
-        <div class="header-actions">
-            <a class="btn-download" href="../JustinWuPoster.pdf" download>Download PDF</a>
-            <a class="nav-link" href="../">← Portfolio</a>
+        <div class="actions-group">
+            <a class="btn btn-outline" href="../JustinWuPoster.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a class="btn btn-primary" href="../JustinWuPoster.pdf" download="JustinWu_ISMB2026_Poster.pdf">Download PDF</a>
         </div>
     </header>
 
-    <div class="pdf-container">
-        <object data="../JustinWuPoster.pdf" type="application/pdf">
-            <div class="fallback">
-                <p>Your browser doesn't support inline PDF viewing.</p>
-                <a class="btn-download" href="../JustinWuPoster.pdf" download>Download Poster (PDF)</a>
-            </div>
-        </object>
-    </div>
+    <iframe class="pdf-viewer-frame" src="../JustinWuPoster.pdf#view=FitH" title="ISMB 2026 Poster — Justin Wu"></iframe>
 </body>
 
 </html>

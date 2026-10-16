@@ -230,6 +230,16 @@ a:hover {
     transform: translateY(-50%);
 }
 
+.hero-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+.hero-meta a:hover {
+    color: var(--accent);
+}
+
 section {
     max-width: var(--measure);
     margin-bottom: 3.25rem;
