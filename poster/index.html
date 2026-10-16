@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISMB 2026 Poster | Justin Wu</title>
+    <meta name="description"
+        content="Enhancing Genetic Ancestry Inference through Topological Data Analysis and Unsupervised Clustering — ISMB 2026 poster by Justin Wu & Tina Yang.">
+    <meta name="theme-color" content="#f4f6f8">
+    <link rel="icon" type="image/jpeg" href="../galaxy.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+            background: #f4f6f8;
+            color: #142033;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 1rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #d5dde7;
+            flex-shrink: 0;
+            gap: 1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: #1f4f78;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+
+        .nav-link:hover {
+            color: #163a58;
+            text-decoration: underline;
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 0.45rem 0.9rem;
+            background: #1f4f78;
+            color: #ffffff;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: background 0.15s ease;
+        }
+
+        .btn-download:hover {
+            background: #163a58;
+        }
+
+        .poster-title {
+            font-family: "Source Serif 4", Georgia, serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #142033;
+            letter-spacing: -0.01em;
+        }
+
+        .poster-subtitle {
+            font-size: 0.85rem;
+            color: #4b5a6d;
+            margin-top: 0.15rem;
+        }
+
+        .pdf-container {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            background: #e5e9f0;
+        }
+
+        .pdf-container iframe,
+        .pdf-container embed,
+        .pdf-container object {
+            width: 100%;
+            height: 100%;
+            border: none;
+            flex: 1;
+        }
+
+        .fallback {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .fallback p {
+            color: #4b5a6d;
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div class="poster-title">ISMB 2026 Poster</div>
+            <div class="poster-subtitle">Wu, J. &amp; Yang, T. — Enhancing Genetic Ancestry Inference through TDA &amp; Unsupervised Clustering</div>
+        </div>
+        <div class="header-actions">
+            <a class="btn-download" href="../JustinWuPoster.pdf" download>Download PDF</a>
+            <a class="nav-link" href="../">← Portfolio</a>
+        </div>
+    </header>
+
+    <div class="pdf-container">
+        <object data="../JustinWuPoster.pdf" type="application/pdf">
+            <div class="fallback">
+                <p>Your browser doesn't support inline PDF viewing.</p>
+                <a class="btn-download" href="../JustinWuPoster.pdf" download>Download Poster (PDF)</a>
+            </div>
+        </object>
+    </div>
+</body>
+
+</html>

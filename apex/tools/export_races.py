@@ -185,11 +185,11 @@ def main():
     parser.add_argument("--catalog-only", action="store_true")
     args = parser.parse_args()
 
-    out_dir = Path("f1/data/races")
+    out_dir = Path("apex/data/races")
     out_dir.mkdir(parents=True, exist_ok=True)
-    catalog_path = Path("f1/data/races.json")
+    catalog_path = Path("apex/data/races.json")
     if not args.catalog_only:
-        cache = Path("f1/.fastf1-cache")
+        cache = Path("apex/.fastf1-cache")
         cache.mkdir(parents=True, exist_ok=True)
         fastf1.Cache.enable_cache(str(cache))
         fastf1.set_log_level("ERROR")

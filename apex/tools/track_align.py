@@ -10,7 +10,7 @@ then resampled to a uniform clock. ``x``/``y`` are rebuilt from ``(s, d)`` so
 every stored position lies on the asphalt the viewer draws.
 
 Usage:
-    python3 f1/tools/track_align.py RAW.json.gz [RAW2.json.gz ...] --out-dir f1/data/races
+    python3 apex/tools/track_align.py RAW.json.gz [RAW2.json.gz ...] --out-dir apex/data/races
 """
 from __future__ import annotations
 
